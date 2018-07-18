@@ -1,0 +1,3 @@
+function totalCost = computeTotalCost()
+
+end
