@@ -1,6 +1,6 @@
-function doValueIteration(allParts, maxIteration, CONST)
+function allParts = doValueIteration(allParts, maxIteration,CONST)
 %{
-This function do the value iteration
+This function performs the value iteration
 
 Input:
 allParts: array that stores all the part
@@ -15,7 +15,7 @@ allParts: with tolerance been allocated to each part
 %     num_parts = length(allParts);
     while(maxIteration>0)
         % Iterate all the parts, for each part iterate all processes
-        allParts = iterateParts(allParts);
+        allParts = iterateParts(allParts,CONST);
         maxIteration = maxIteration - 1;
     end
 end

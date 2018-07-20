@@ -11,7 +11,20 @@
 %     
 % end
 
-function process = test()
-    process.lb = 0;
-    process.hb = 1;
-end
+% function process = test()
+%     process.lb = 0;
+%     process.hb = 1;
+% end
+% 
+% person.name = "a";
+% person.age = 10;
+% 
+% 
+% hands.left = "left";
+% hands.right = "right";
+% 
+% person.hands = hands;
+% 
+% APerson = person;
+
+a = rand(1,10)*10;

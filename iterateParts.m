@@ -5,20 +5,17 @@ iterate through all possible processes.
 
 %}
     allPartsCopy = allParts;
-    num_parts = lenght(allParts);
-    
-    %step of iterat a process
-    step = CONST.step;
+    num_parts = length(allPartsCopy);   
     
     for i = 1:num_parts
 
         %Iterate processes
-        
-        %lower bound of the tolerance
-        lb = allParts(i).
+        allPartsCopy = iterateProcesses(allParts, i ,CONST);
+%         %lower bound of the tolerance
+%         lb = allPartsCopy(i).
     end
     
     
     
-
+allParts = allPartsCopy;
 end

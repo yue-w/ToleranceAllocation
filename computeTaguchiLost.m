@@ -1,0 +1,3 @@
+function taguchiCost = computeTaguchiLost()
+
+end

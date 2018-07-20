@@ -1,15 +1,10 @@
 % This program use dynamic programming to allocate tolerance to different machining processes.
 
-%Number of Parts
-num_Prt = 0;
+%Max iteration number
+maxIteration = 10;
 
-% %Number of manufacturing processes
-% num_Mfg = 0;
+%Define Parts and some constant
+[allParts, CONST] = initialize();
 
-%Define attribute of processes
-%process = defineProcess();
-
-%Define Parts
-
-
+doValueIteration(allParts, maxIteration,CONST)
 
