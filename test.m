@@ -27,4 +27,4 @@
 % 
 % APerson = person;
 
-a = rand(1,10)*10;
+a = 1:10;

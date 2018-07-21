@@ -1,4 +1,4 @@
-function allParts = iterateProcesses(allParts, thisPartIndex,CONST)
+function [allParts,data] = iterateProcesses(allParts, thisPartIndex,CONST,data)
 %{
 This function iterate all processes for one part, choose the process and the
 corresponding tolerance with lowest total cost
@@ -16,29 +16,23 @@ INPUT:
     for i = 1:num_process
         thisProcess = processes(i);
         lb = thisProcess.lb;
-        ub = thisProcess.ub;
-        
-        %Compute cost of current tolerance allocation stragegy
-        
-        %thisPart = machinePart_bounds(thisPart, thisProcess, tol, CONST);
-        thisPart = machinePart_bounds(thisPart, i, thisPart.tol, CONST);
-        maxProfit = computeTotalProfit(allParts, thisPart,0, i,CONST);
-                        
+        ub = thisProcess.ub;   
         %Iterate tolerances
-        tol = ub;        
+        tol = ub;   
+        
         while( tol >= lb )   
             thisPart = machinePart_bounds(thisPart, i, tol, CONST);
-            totalProfit = computeTotalProfit(allParts, thisPart,thisPartIndex, i, CONST);
-            
-            if(totalProfit>maxProfit)
-               maxProfit = totalProfit;
+            [totalProfit,num_products] = computeTotalProfit(allParts, thisPart,thisPartIndex, i, CONST);            
+            if(totalProfit>=data.max)
+               data.max = totalProfit;
+               data.num_products = num_products;
                thisPart.tol = tol; 
                thisPart.processIndex = i;
+               allParts(thisPartIndex) = thisPart;
             end
             tol = tol - CONST.STEP;
         end
         
     end
-    
-    allParts(thisPartIndex) = thisPart;
+%     allParts(thisPartIndex) = thisPart;
 end

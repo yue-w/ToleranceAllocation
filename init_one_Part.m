@@ -1,4 +1,4 @@
-function part = init_one_Part(processes, tol, dimension, processIndex,CONST)
+function part = init_one_Part(processes, tol, dimension, processIndex)
 %This function define attributes of a part
     
     %Array that store the processes that can be used to machine this part

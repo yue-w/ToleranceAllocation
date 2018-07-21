@@ -1,4 +1,4 @@
-function CONST = initCONST(BACH,PRICE, DIM, LTOL, UTOL, STEP)
+function CONST = initCONST(BACH,PRICE, DIM, LTOL, UTOL, STEP,TAGUCH_K)
 %BACH is the number of parts simulated to be machined
 CONST.BACH = BACH;
 CONST.PRICE = PRICE;
@@ -10,4 +10,5 @@ CONST.LTOL = LTOL;
 CONST.UTOL = UTOL;
 
 CONST.STEP = STEP;
+CONST.TAGUCH_K = TAGUCH_K;
 end

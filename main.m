@@ -4,7 +4,7 @@
 maxIteration = 10;
 
 %Define Parts and some constant
-[allParts, CONST] = initialize();
+[allParts, CONST, data] = initialize(maxIteration);
 
-doValueIteration(allParts, maxIteration,CONST)
+[allParts,data] = doValueIteration(allParts, maxIteration,CONST,data);
 

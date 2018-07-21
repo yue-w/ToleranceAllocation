@@ -1,4 +1,4 @@
-function profit = profit_bounds(allParts, thisPart,thisPartIndex, thisProcessIndex,CONST)
+function [profit,num_products] = profit_bounds(allParts, thisPart,thisPartIndex, thisProcessIndex,productDim,CONST)
 %{
 This function compute the total cost of given tolerance.
 The cost for different processes are different. 
@@ -11,7 +11,7 @@ a given cost), so, differnet tolerance corresponding to different total cost
 
     machiningCost = computeMachiningCost_bounds(allParts,thisPart, thisPartIndex,thisProcessIndex);
          
-    productProfit = computeProductsProfit(allParts, thisPart,thisPartIndex,CONST);   
+    [productProfit,num_products] = computeProductsProfit(productDim,CONST);   
     
     profit =  productProfit - machiningCost;
 end

@@ -1,4 +1,4 @@
-function allParts = iterateParts(allParts,CONST)
+function [allParts,data] = iterateParts(allParts,CONST,data,index)
 %{
 This function do one step of iteration. Iterate each part. For each part,
 iterate through all possible processes.
@@ -10,12 +10,15 @@ iterate through all possible processes.
     for i = 1:num_parts
 
         %Iterate processes
-        allPartsCopy = iterateProcesses(allParts, i ,CONST);
-%         %lower bound of the tolerance
-%         lb = allPartsCopy(i).
+        [allPartsCopy,data] = iterateProcesses(allPartsCopy, i ,CONST,data);
+        data.max_pt(num_parts*(index-1)+i+1) = data.max;
+        data.num_products_pt(num_parts*(index-1)+i+1) = data.num_products;
     end
+    data.max_it(index+1) = data.max;
+    data.num_products_it(index+1) = data.num_products;
     
-    
-    
+    for parts_index = 1:num_parts
+        data.num_prts(parts_index,index+1) = allParts(parts_index).totalNum;
+    end
 allParts = allPartsCopy;
 end

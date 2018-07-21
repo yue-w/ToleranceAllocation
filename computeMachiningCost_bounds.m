@@ -4,15 +4,17 @@ function machiningCost = computeMachiningCost_bounds(allParts,thisPart, thisPart
     machiningCost = 0;
     numParts = length(allParts);
     for i = 1:numParts
-        if i ~= thisPartIndex
+        if i ~= thisPartIndex %for the part not under iteration, use the stored values from former iterations
             part = allParts(i);
-           
+            cost_thisPart = part.processes(part.processIndex).const.machiningConst * part.totalNum;
+            machiningCost = machiningCost + cost_thisPart;            
         else
-            part = thisPart;
-             
-        end
+            part = thisPart; %For the part under iteration, use the new value set to it
             cost_thisPart = part.processes(thisProcessIndex).const.machiningConst * part.totalNum;
-            machiningCost = machiningCost + cost_thisPart; 
+            machiningCost = machiningCost + cost_thisPart;              
+        end
+%             cost_thisPart = part.processes(thisProcessIndex).const.machiningConst * part.totalNum;
+%             machiningCost = machiningCost + cost_thisPart; 
 
     end
 end

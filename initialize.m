@@ -1,4 +1,4 @@
-function [allParts, CONST ]= initialize()
+function [allParts, CONST,data]= initialize(maxIteration)
 
 BACH = 1000;
 DIM = 4;
@@ -9,10 +9,13 @@ ULIM = DIM + UTOL;% = 4.15
 %Iterate step for the tolerance
 STEP = (UTOL - LTOL) / 20;
 PRICE = 10;
-CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP);
+TAGUCH_K = 1;
+CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K);
 
+%lb, ub are the searching area for the tolerance of processes. Set it to the tolerance
+%of the product.
 lb = 0;
-ub = ULIM;
+ub = UTOL - LTOL;
 
 a = 0; b = 0; c = 0; d = 0;
 
@@ -29,14 +32,14 @@ part1_dim = 1;
 part2_dim = 3;
 %Part 1
 %Use machine 1 to process part 1
-dev_pt1 = 0.05;
+dev_pt1 = 0.1;
 Xbar_m1_pt1 = 1;
 Sdev_m1_pt1 = (part1_dim + dev_pt1 -Xbar_m1_pt1)/1.96;
 
 %Part 2
 %Assumes that the mean is 3, and 95% of the parts fall in 2.9-3.1
 %Use machine 1 to process part 2
-dev_pt2 = 0.1;
+dev_pt2 = 0.2;
 Xbar_m1_pt2 = 3;
 Sdev_m1_pt2 = (part2_dim + dev_pt2 - Xbar_m1_pt2)/1.96;
 
@@ -67,12 +70,20 @@ part2_process(2) = process_m2_pt2;
 
 
 processIndex = 1;
-part1 = init_one_Part(part1_process, tol, part1_dim, processIndex,CONST);
-part2 = init_one_Part(part2_process, tol, part2_dim, processIndex,CONST);
+part1 = init_one_Part(part1_process, tol, part1_dim, processIndex);
+part2 = init_one_Part(part2_process, tol, part2_dim, processIndex);
+
+%Initialize some dimensions that will be used in computing cost
+part1 = machinePart_bounds(part1, 1, part1.tol, CONST);
+part2 = machinePart_bounds(part2, 1, part2.tol, CONST);
 
 allParts(1) = part1;
 allParts(2) = part2;
 
+%the total profit of the initialized state.
+[maxProfit,num_products] = computeTotalProfit(allParts,part1,0,processIndex,CONST);
+
+data = setData(maxProfit, maxIteration,num_part,num_products,allParts);
 
 
 end
