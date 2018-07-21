@@ -7,7 +7,7 @@ UTOL = 0.15;
 LLIM = DIM + LTOL;% = 3.85
 ULIM = DIM + UTOL;% = 4.15
 %Iterate step for the tolerance
-STEP = (UTOL - LTOL) / 20;
+STEP = (UTOL - LTOL) / 50;
 PRICE = 10;
 TAGUCH_K = 1;
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K);

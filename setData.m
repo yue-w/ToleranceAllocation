@@ -16,12 +16,15 @@ function data = setData(maxProfit,maxIteration,num_part,num_products,allParts)
     data.num_products_it(1) =num_products; 
 
     %Store the number of parts machined so that there are BACH parts falls into
-    %allocated tolerance.
-    
+    %allocated tolerance.    
     %Store value for each iteration
     data.num_prts= zeros(num_part,maxIteration+1);
     
+   %Store the tolerance choosed at each iteration
+   data.tol = zeros(num_part,maxIteration+1);
+      
     for index = 1:num_part
         data.num_prts(index,1) = allParts(index).totalNum;
+        data.tol(index,1) = allParts(index).tol;
     end
 end

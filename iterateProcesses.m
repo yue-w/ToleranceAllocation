@@ -20,7 +20,7 @@ INPUT:
         %Iterate tolerances
         tol = ub;   
         
-        while( tol >= lb )   
+        while( tol >= lb && tol>0 )   
             thisPart = machinePart_bounds(thisPart, i, tol, CONST);
             [totalProfit,num_products] = computeTotalProfit(allParts, thisPart,thisPartIndex, i, CONST);            
             if(totalProfit>=data.max)
