@@ -26,5 +26,5 @@
 % person.hands = hands;
 % 
 % APerson = person;
-
-a = 1:10;
+p = [0.95,0.90];
+z = norminv((1+p)/2);

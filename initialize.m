@@ -1,7 +1,12 @@
 function [allParts, CONST,data]= initialize(maxIteration)
+num_part = 3;
+num_processes = 2;
+part1_dim = 1;
+part2_dim = 3;
+part3_dim = 2;
 
 BACH = 1000;
-DIM = 4;
+DIM = part1_dim + part2_dim + part3_dim ;
 LTOL =  -0.15;
 UTOL = 0.15;
 LLIM = DIM + LTOL;% = 3.85
@@ -14,74 +19,61 @@ CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K);
 
 %lb, ub are the searching area for the tolerance of processes. Set it to the tolerance
 %of the product.
-lb = 0;
 ub = UTOL - LTOL;
+lb = ub/10;
 
 a = 0; b = 0; c = 0; d = 0;
 
-num_part = 2;
+
+
 tol =(UTOL - LTOL)/num_part;
 
+%Two machines(m) two parts(p).
 
-%Two machines(m) two part(p).
-%Machine 1. Assume that 95% of the parts fall in the bounds. Unbiased.
-machiningConst_m1 = 2;
-%Phi(1.96)=97.5%
-%Assumes that the mean is 1 and 95% of the parts fall in 0.95-1.05
-part1_dim = 1;
-part2_dim = 3;
+p = [0.95,0.9];
+
 %Part 1
-%Use machine 1 to process part 1
-dev_pt1 = 0.1;
-Xbar_m1_pt1 = 1;
-Sdev_m1_pt1 = (part1_dim + dev_pt1 -Xbar_m1_pt1)/1.96;
+machiningConstVecPt1 = [2,1]; 
+Xbar_pt1_vec = ones(1,num_processes);
+dev_pt1 = [0.1,0.1];
+part1_dim_vec = part1_dim*ones(1,num_processes);
+Sdev_pt1 = standev(part1_dim_vec,dev_pt1, Xbar_pt1_vec, p);
 
 %Part 2
-%Assumes that the mean is 3, and 95% of the parts fall in 2.9-3.1
-%Use machine 1 to process part 2
-dev_pt2 = 0.2;
-Xbar_m1_pt2 = 3;
-Sdev_m1_pt2 = (part2_dim + dev_pt2 - Xbar_m1_pt2)/1.96;
+machiningConstVecPt2 = [2,1]; 
+Xbar_pt2_vec = 3*ones(1,num_processes);
+dev_pt2 = [0.1,0.1];
+part2_dim_vec = part2_dim*ones(1,num_processes);
+Sdev_pt2 = standev(part2_dim_vec,dev_pt2, Xbar_pt2_vec, p);
 
-%Machine 2. Assume that 90% of the parts fall in the bounds. Unbiased
-machiningConst_m2 = 1;
-%Phi(1.6449) = 0.95
-%Use machine 2 to process Part 1
-%Part 1
-Xbar_m2_pt1 = part1_dim;
-Sdev_m2_pt1 = (part1_dim + dev_pt1 -Xbar_m1_pt1)/1.6449;
-
-%Part 2
-%Use machine 2 to process part 2
-Xbar_m2_pt2 = part2_dim;
-Sdev_m2_pt2 = (part2_dim + dev_pt2 - Xbar_m1_pt2)/1.6449;
+%Part 3
+machiningConstVecPt3 = [2,1]; 
+Xbar_pt3_vec = 2*ones(1,num_processes);
+dev_pt3 = [0.1,0.1];
+part3_dim_vec = part3_dim*ones(1,num_processes);
+Sdev_pt3 = standev(part3_dim_vec,dev_pt3, Xbar_pt3_vec, p);
 
 
-process_m1_pt1 = init_one_Process(lb, ub, a, b, c, d, machiningConst_m1, Xbar_m1_pt1, Sdev_m1_pt1);
-process_m2_pt1 = init_one_Process(lb, ub, a, b, c, d, machiningConst_m2, Xbar_m2_pt1, Sdev_m2_pt1);
-part1_process(1) =  process_m1_pt1;
-part1_process(2) =  process_m2_pt1;
+part1_process = setprocesses(lb, ub, a, b, c, d,machiningConstVecPt1,Xbar_pt1_vec,Sdev_pt1);
+part2_process = setprocesses(lb, ub, a, b, c, d,machiningConstVecPt2,Xbar_pt2_vec,Sdev_pt2);
+part3_process = setprocesses(lb, ub, a, b, c, d,machiningConstVecPt3,Xbar_pt3_vec,Sdev_pt3);
 
-process_m1_pt2 = init_one_Process(lb, ub, a, b, c, d, machiningConst_m1, Xbar_m1_pt2, Sdev_m1_pt2);
-process_m2_pt2 = init_one_Process(lb, ub, a, b, c, d, machiningConst_m2, Xbar_m2_pt2, Sdev_m2_pt2);
-part2_process(1) = process_m1_pt2;
-part2_process(2) = process_m2_pt2;
-
-
-
-processIndex = 1;
-part1 = init_one_Part(part1_process, tol, part1_dim, processIndex);
-part2 = init_one_Part(part2_process, tol, part2_dim, processIndex);
+init_processIndex = 1;
+part1 = init_one_Part(part1_process, tol, part1_dim, init_processIndex);
+part2 = init_one_Part(part2_process, tol, part2_dim, init_processIndex);
+part3 = init_one_Part(part3_process, tol, part3_dim, init_processIndex);
 
 %Initialize some dimensions that will be used in computing cost
 part1 = machinePart_bounds(part1, 1, part1.tol, CONST);
 part2 = machinePart_bounds(part2, 1, part2.tol, CONST);
+part3 = machinePart_bounds(part3, 1, part3.tol, CONST);
 
 allParts(1) = part1;
 allParts(2) = part2;
+allParts(3) = part3;
 
 %the total profit of the initialized state.
-[maxProfit,num_products] = computeTotalProfit(allParts,part1,0,processIndex,CONST);
+[maxProfit,num_products] = computeTotalProfit(allParts,part1,0,init_processIndex,CONST);
 
 data = setData(maxProfit, maxIteration,num_part,num_products,allParts);
 

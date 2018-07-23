@@ -1,7 +1,7 @@
 % This program use dynamic programming to allocate tolerance to different machining processes.
 
 %Max iteration number
-maxIteration = 4;
+maxIteration = 20;
 
 %Define Parts and some constant
 [allParts, CONST, data] = initialize(maxIteration);
