@@ -11,7 +11,7 @@ function [parts,num_part_added] = addParts(parts,thisPart,thisProcessIndex, desi
     while(gap>0)
         num_part_added = num_part_added + gap;
         addedParts = normrnd(thisPart.processes(thisProcessIndex).Xbar, thisPart.processes(thisProcessIndex).Sdev, [1,gap]);
-        addedParts = addedParts(addedParts>=designDim - tol & addedParts <= designDim + tol);
+        addedParts = addedParts(addedParts>= designDim - tol & addedParts <= designDim + tol);
         parts = [parts, addedParts];
         gap = BATCH - length(parts);
     end

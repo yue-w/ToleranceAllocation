@@ -2,31 +2,32 @@ function [allParts, CONST,data]= initialize(maxIteration)
 num_part = 3;
 num_processes = 2;
 part1_dim = 1;
-part2_dim = 3;
-part3_dim = 2;
+part2_dim = 1;
+part3_dim = 1;
 
-BACH = 1000;
+BACH = 10000;
 DIM = part1_dim + part2_dim + part3_dim ;
-LTOL =  -0.15;
-UTOL = 0.15;
-LLIM = DIM + LTOL;% = 3.85
-ULIM = DIM + UTOL;% = 4.15
+% LTOL =  -0.15;
+% UTOL = 0.15;
+TOL = 0.15;
+LLIM = DIM - TOL;% = 3.85
+ULIM = DIM + TOL;% = 4.15
 %Iterate step for the tolerance
-STEP = (UTOL - LTOL) / 50;
+STEP = TOL / 100;
 PRICE = 10;
 TAGUCH_K = 1;
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K);
 
 %lb, ub are the searching area for the tolerance of processes. Set it to the tolerance
 %of the product.
-ub = UTOL - LTOL;
-lb = ub/10;
+ub = TOL;
+lb = ub/20;
 
 a = 0; b = 0; c = 0; d = 0;
 
 
 
-tol =(UTOL - LTOL)/num_part;
+tol =TOL/num_part;
 
 %Two machines(m) two parts(p).
 
@@ -34,23 +35,23 @@ p = [0.95,0.9];
 
 %Part 1
 machiningConstVecPt1 = [2,1]; 
-Xbar_pt1_vec = ones(1,num_processes);
+Xbar_pt1_vec = part1_dim*ones(1,num_processes);
 dev_pt1 = [0.1,0.1];
-part1_dim_vec = part1_dim*ones(1,num_processes);
+part1_dim_vec = Xbar_pt1_vec;
 Sdev_pt1 = standev(part1_dim_vec,dev_pt1, Xbar_pt1_vec, p);
 
 %Part 2
 machiningConstVecPt2 = [2,1]; 
-Xbar_pt2_vec = 3*ones(1,num_processes);
+Xbar_pt2_vec = part2_dim*ones(1,num_processes);
 dev_pt2 = [0.1,0.1];
-part2_dim_vec = part2_dim*ones(1,num_processes);
+part2_dim_vec = Xbar_pt2_vec;
 Sdev_pt2 = standev(part2_dim_vec,dev_pt2, Xbar_pt2_vec, p);
 
 %Part 3
 machiningConstVecPt3 = [2,1]; 
-Xbar_pt3_vec = 2*ones(1,num_processes);
+Xbar_pt3_vec = part3_dim*ones(1,num_processes);
 dev_pt3 = [0.1,0.1];
-part3_dim_vec = part3_dim*ones(1,num_processes);
+part3_dim_vec = Xbar_pt3_vec;
 Sdev_pt3 = standev(part3_dim_vec,dev_pt3, Xbar_pt3_vec, p);
 
 

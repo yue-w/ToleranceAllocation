@@ -19,6 +19,7 @@ iterate through all possible processes.
     
     for parts_index = 1:num_parts
         data.num_prts(parts_index,index+1) = allParts(parts_index).totalNum;
+        
         data.tol(parts_index,index+1) = allParts(parts_index).tol;
     end
 allParts = allPartsCopy;
