@@ -1,4 +1,4 @@
-function [allParts,data] = doValueIteration(allParts, maxIteration,CONST,data)
+function [allParts,data] = doValueIteration(allParts, maxIteration,CONST,data,METHOD)
 %{
 This function performs the value iteration
 
@@ -17,7 +17,7 @@ allParts: with tolerance been allocated to each part
     index = 1;
     while(maxIteration>0)
         % Iterate all the parts, for each part iterate all processes
-        [allParts,data] = iterateParts(allParts,CONST,data,index);
+        [allParts,data] = iterateParts(allParts,CONST,data,index,METHOD);
         maxIteration = maxIteration - 1;
         
         index = index + 1;

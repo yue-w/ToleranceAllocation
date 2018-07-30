@@ -1,4 +1,4 @@
-function [allParts, CONST,data]= initialize(maxIteration)
+function [allParts, CONST,data]= initialize(maxIteration,CONSTMETHOD)
 num_part = 3;
 num_processes = 2;
 part1_dim = 1;
@@ -16,9 +16,11 @@ ULIM = DIM + TOL;% = 4.15
 STEP = TOL / 100;
 PRICE = 10;
 TAGUCH_K = 1;
-CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K);
+KSIGMA = 0;
+CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD);
 
 %lb, ub are the searching area for the tolerance of processes. Set it to the tolerance
+
 %of the product.
 ub = TOL;
 lb = ub/20;

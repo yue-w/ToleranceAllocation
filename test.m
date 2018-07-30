@@ -1,30 +1,10 @@
-% 
-% function items = test()
-%     person.attr = "person";
-%     person.name = " ";
-%     person.age = 0;
-%     items(10) = person;
-%     for i = 1:10
-%         items(i).name = int2str(i);
-%         items(i).age = i;
-%     end
-%     
-% end
 
-% function process = test()
-%     process.lb = 0;
-%     process.hb = 1;
-% end
-% 
-% person.name = "a";
-% person.age = 10;
-% 
-% 
-% hands.left = "left";
-% hands.right = "right";
-% 
-% person.hands = hands;
-% 
-% APerson = person;
-p = [0.95,0.90];
-z = norminv((1+p)/2);
+a = [0.03 0.02];
+b = [0.012 0.016];
+x = 0.015:(0.4-0.1)/100:0.06;
+y1 = a(1) + b(1)./x;
+y2 = a(2) + b(2)./x;
+
+figure
+plot(x,y1,x,y2);
+

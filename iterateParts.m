@@ -1,4 +1,4 @@
-    function [allParts,data] = iterateParts(allParts,CONST,data,index)
+    function [allParts,data] = iterateParts(allParts,CONST,data,index,METHOD)
 %{
 This function do one step of iteration. Iterate each part. For each part,
 iterate through all possible processes.
@@ -10,7 +10,13 @@ iterate through all possible processes.
     for i = 1:num_parts
 
         %Iterate processes
-        [allPartsCopy,data] = iterateProcesses(allPartsCopy, i ,CONST,data);
+        switch METHOD
+            case CONST.METHOD.BOUND
+                [allPartsCopy,data] = iterateProcessesbound(allPartsCopy, i ,CONST,data);
+            case CONST.METHOD.SIGMA
+                [allPartsCopy,data] = iterateProcessessigma(allPartsCopy, i ,CONST,data);
+        end
+        
         data.max_pt(num_parts*(index-1)+i+1) = data.max;
         data.num_products_pt(num_parts*(index-1)+i+1) = data.num_products;
     end

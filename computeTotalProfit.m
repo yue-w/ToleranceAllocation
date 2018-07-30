@@ -14,9 +14,10 @@ CONST - some constant used in computation
     %of given tolerance.
     
     productDims = assemble(allParts, thisPart,thisPartIndex,CONST);
-    [profit,num_products] = profit_bounds(allParts, thisPart, thisPartIndex, thisProcessIndex,productDims, CONST);
+    [productprofit,num_products] = profit(allParts, thisPart, thisPartIndex, thisProcessIndex,productDims, CONST);
     
     %Taguchi lost
     taguchiLost = computeTaguchiLost(productDims, CONST); 
-    totalProfit = profit - taguchiLost;
+    totalProfit = productprofit - taguchiLost;
+    
 end

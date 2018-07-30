@@ -7,7 +7,8 @@ function part = init_one_Part(processes, tol, dimension, processIndex)
     %The index of the process selected
     part.processIndex = processIndex;
     
-    %Tolerance assigned to this part
+    %Tolerance assigned to this part. 
+    %For VarySigma, tol=c*sigma. c is constant
     part.tol = tol;
     
     %Designed dimension of this part

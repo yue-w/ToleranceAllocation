@@ -21,8 +21,10 @@ function data = setData(maxProfit,maxIteration,num_part,num_products,allParts)
     data.num_prts= zeros(num_part,maxIteration+1);
     
    %Store the tolerance choosed at each iteration
-   data.tol = zeros(num_part,maxIteration+1);
-      
+    data.tol = zeros(num_part,maxIteration+1);
+
+    data.num_products = num_products;
+
     for index = 1:num_part
         data.num_prts(index,1) = allParts(index).totalNum;
         data.tol(index,1) = allParts(index).tol;

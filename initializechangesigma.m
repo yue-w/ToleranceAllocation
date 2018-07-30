@@ -1,0 +1,88 @@
+function [allParts, CONST,data]=initializechangesigma(maxIteration,CONSTMETHOD)
+%{
+This function is in scenerio two. Change sigma.
+initialize parameters
+
+%}
+num_part = 3;
+num_processes = 2;
+part1_dim = 1;
+part2_dim = 1;
+part3_dim = 1;
+KSIGMA = 3;
+
+BACH = 10000;
+DIM = part1_dim + part2_dim + part3_dim ;
+% LTOL =  -0.15;
+% UTOL = 0.15;
+TOL = 0.15;
+LLIM = DIM - TOL;% = 3.85
+ULIM = DIM + TOL;% = 4.15
+
+a = [0.030 0.020];
+b = [0.012 0.016];
+c = [0,0];
+d = [0,0];
+%We use the function tolerance = k*sigma 
+init_sigma = sqrt((TOL/KSIGMA)^2/num_part);
+init_sigma=0.02;
+STEP = init_sigma / 200;
+
+PRICE = 20;
+TAGUCH_K = 4;
+CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD);
+
+%Lower bound and upper bound of the probability that the dimension will
+%fall between the given us and ls. The probability determines the sigma
+p = [0.90,0.997];
+
+%initialialized sigma
+init_sigma_vec = init_sigma*ones(1,num_processes);
+
+%Init process index
+init_processIndex = 1;
+tol = KSIGMA * init_sigma;%The tolerance is a constant times sigma
+
+%Part 1
+Xbar_pt1_vec = part1_dim*ones(1,num_processes);
+dev_pt1 = 0.05*ones(1,num_processes);
+part1_dim_vec = Xbar_pt1_vec;
+Sdev_pt1 = standev(part1_dim_vec,dev_pt1, Xbar_pt1_vec, p);
+part1_process = setprocessessigma(a, b, c, d,Xbar_pt1_vec,Sdev_pt1,init_sigma_vec);
+part1 = init_one_Part(part1_process, tol, part1_dim, init_processIndex);
+
+
+%Part 2 
+Xbar_pt2_vec = part2_dim*ones(1,num_processes);
+dev_pt2 = 0.05*ones(1,num_processes);
+part2_dim_vec = Xbar_pt2_vec;
+Sdev_pt2 = standev(part2_dim_vec,dev_pt2, Xbar_pt2_vec, p);
+part2_process = setprocessessigma(a, b, c, d,Xbar_pt2_vec,Sdev_pt2,init_sigma_vec);
+part2 = init_one_Part(part2_process, tol, part2_dim, init_processIndex);
+
+%Part 3
+Xbar_pt3_vec = part3_dim*ones(1,num_processes);
+dev_pt3 = 0.05*ones(1,num_processes);
+part3_dim_vec = Xbar_pt3_vec;
+Sdev_pt3 = standev(part3_dim_vec,dev_pt3, Xbar_pt3_vec, p);
+part3_process = setprocessessigma(a, b, c, d,Xbar_pt3_vec,Sdev_pt3,init_sigma_vec);
+part3 = init_one_Part(part3_process, tol, part3_dim, init_processIndex);
+
+%Initialize some dimensions that will be used in computing cost
+part1 = machinePart_sigma(part1, init_processIndex, init_sigma, CONST);
+part2 = machinePart_sigma(part2, init_processIndex, init_sigma, CONST);
+part3 = machinePart_sigma(part3, init_processIndex, init_sigma, CONST);
+
+allParts(1) = part1;
+allParts(2) = part2;
+allParts(3) = part3;
+
+allParts = initsigmacost(allParts,init_sigma);
+
+%the total profit of the initialized state.
+[maxProfit,num_products] = computeTotalProfit(allParts,part1,0,init_processIndex,CONST);
+
+data = setData(maxProfit, maxIteration,num_part,num_products,allParts);
+
+
+end

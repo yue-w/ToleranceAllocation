@@ -1,7 +1,8 @@
 function process = init_one_Process(lb, ub, a, b, c, d, machiningConst, Xbar, Sdev)
-    %lower bound of the tolerance
+    %lower bound and upper bound of the tolerance.
+    %For the VaryBounds method, they are the bounds for the LS and US
+    %For the VarySigma method, they are the bounds for the sigma
     process.lb = lb;
-    %up bound of the tolerance
     process.ub = ub;
     %some constant used to compute cost
     const.a = a;
@@ -15,7 +16,8 @@ function process = init_one_Process(lb, ub, a, b, c, d, machiningConst, Xbar, Sd
     %This might or might not equals designed value. Computed using samples.
     process.Xbar = Xbar;
     
-    %Standard deviation of this process. Computed using samples.
+    %Standard deviation of this process. Computed using samples. Used for
+    %VaryBounds Method
     process.Sdev = Sdev;
     
     
