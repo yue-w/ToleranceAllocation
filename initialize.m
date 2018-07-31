@@ -9,7 +9,7 @@ BACH = 10000;
 DIM = part1_dim + part2_dim + part3_dim ;
 % LTOL =  -0.15;
 % UTOL = 0.15;
-TOL = 0.15;
+TOL = 0.1;
 LLIM = DIM - TOL;% = 3.85
 ULIM = DIM + TOL;% = 4.15
 %Iterate step for the tolerance
@@ -33,17 +33,17 @@ tol =TOL/num_part;
 
 %Two machines(m) two parts(p).
 
-p = [0.95,0.9];
+p = [0.97,0.9];
 
 %Part 1
-machiningConstVecPt1 = [2,1]; 
+machiningConstVecPt1 = [1.2,1]; 
 Xbar_pt1_vec = part1_dim*ones(1,num_processes);
 dev_pt1 = [0.1,0.1];
 part1_dim_vec = Xbar_pt1_vec;
 Sdev_pt1 = standev(part1_dim_vec,dev_pt1, Xbar_pt1_vec, p);
 
 %Part 2
-machiningConstVecPt2 = [2,1]; 
+machiningConstVecPt2 = [1.2,1]; 
 Xbar_pt2_vec = part2_dim*ones(1,num_processes);
 dev_pt2 = [0.1,0.1];
 part2_dim_vec = Xbar_pt2_vec;
