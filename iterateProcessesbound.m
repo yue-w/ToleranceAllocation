@@ -19,9 +19,9 @@ INPUT:
         ub = thisProcess.ub;   
         %Iterate tolerances
         tol = ub;   
-        
+        sigma = thisProcess.Sdev;
         while( tol >= lb && tol>0 )   
-            thisPart = machinePart_bounds(thisPart, i, tol, CONST);
+            thisPart = machinePart(thisPart, i,sigma,tol, CONST);
             [totalProfit,num_products] = computeTotalProfit(allParts, thisPart,thisPartIndex, i, CONST);            
             if(totalProfit>=data.max)
                data.max = totalProfit;

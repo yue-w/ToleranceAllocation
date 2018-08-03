@@ -17,7 +17,8 @@ STEP = TOL / 100;
 PRICE = 10;
 TAGUCH_K = 1;
 KSIGMA = 0;
-CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD);
+REWORK = 0;
+CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK);
 
 %lb, ub are the searching area for the tolerance of processes. Set it to the tolerance
 
@@ -33,10 +34,11 @@ tol =TOL/num_part;
 
 %Two machines(m) two parts(p).
 
-p = [0.97,0.9];
+p = [0.99,0.92];
 
 %Part 1
 machiningConstVecPt1 = [1.2,1]; 
+reworkingConstVecPt1 = [0.5,0.5];
 Xbar_pt1_vec = part1_dim*ones(1,num_processes);
 dev_pt1 = [0.1,0.1];
 part1_dim_vec = Xbar_pt1_vec;
@@ -44,6 +46,7 @@ Sdev_pt1 = standev(part1_dim_vec,dev_pt1, Xbar_pt1_vec, p);
 
 %Part 2
 machiningConstVecPt2 = [1.2,1]; 
+reworkingConstVecPt2 = [0.5,0.5];
 Xbar_pt2_vec = part2_dim*ones(1,num_processes);
 dev_pt2 = [0.1,0.1];
 part2_dim_vec = Xbar_pt2_vec;
@@ -51,15 +54,16 @@ Sdev_pt2 = standev(part2_dim_vec,dev_pt2, Xbar_pt2_vec, p);
 
 %Part 3
 machiningConstVecPt3 = [2,1]; 
+reworkingConstVecPt3 = [0.5,0.5];
 Xbar_pt3_vec = part3_dim*ones(1,num_processes);
 dev_pt3 = [0.1,0.1];
 part3_dim_vec = Xbar_pt3_vec;
 Sdev_pt3 = standev(part3_dim_vec,dev_pt3, Xbar_pt3_vec, p);
 
 
-part1_process = setprocesses(lb, ub, a, b, c, d,machiningConstVecPt1,Xbar_pt1_vec,Sdev_pt1);
-part2_process = setprocesses(lb, ub, a, b, c, d,machiningConstVecPt2,Xbar_pt2_vec,Sdev_pt2);
-part3_process = setprocesses(lb, ub, a, b, c, d,machiningConstVecPt3,Xbar_pt3_vec,Sdev_pt3);
+part1_process = setprocesses(lb, ub, a, b, c, d,machiningConstVecPt1,reworkingConstVecPt1,Xbar_pt1_vec,Sdev_pt1);
+part2_process = setprocesses(lb, ub, a, b, c, d,machiningConstVecPt2,reworkingConstVecPt2,Xbar_pt2_vec,Sdev_pt2);
+part3_process = setprocesses(lb, ub, a, b, c, d,machiningConstVecPt3,reworkingConstVecPt3,Xbar_pt3_vec,Sdev_pt3);
 
 init_processIndex = 1;
 part1 = init_one_Part(part1_process, tol, part1_dim, init_processIndex);
@@ -67,9 +71,9 @@ part2 = init_one_Part(part2_process, tol, part2_dim, init_processIndex);
 part3 = init_one_Part(part3_process, tol, part3_dim, init_processIndex);
 
 %Initialize some dimensions that will be used in computing cost
-part1 = machinePart_bounds(part1, 1, part1.tol, CONST);
-part2 = machinePart_bounds(part2, 1, part2.tol, CONST);
-part3 = machinePart_bounds(part3, 1, part3.tol, CONST);
+part1 = machinePart(part1, 1,part1_process(init_processIndex).Sdev, part1.tol, CONST);
+part2 = machinePart(part2, 1,part2_process(init_processIndex).Sdev, part2.tol, CONST);
+part3 = machinePart(part3, 1,part3_process(init_processIndex).Sdev,part3.tol, CONST);
 
 allParts(1) = part1;
 allParts(2) = part2;

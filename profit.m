@@ -9,7 +9,7 @@ a given cost), so, differnet tolerance corresponding to different total cost
 (maching cost plus other costs).
 %}
 
-    machiningCost = computeMachiningCost(allParts,thisPart, thisPartIndex,thisProcessIndex);
+    machiningCost = computeMachiningCost(allParts,thisPart, thisPartIndex,thisProcessIndex,CONST);
          
     [productProfit,num_products] = computeProductsProfit(productDim,CONST);   
     

@@ -17,7 +17,7 @@ function part = init_one_Part(processes, tol, dimension, processIndex)
     %Total parts machined (including parts that falls outside the tolerance bounds)
     %scalFactor = 1.1;%used in the begining of the iteration, assume the number of the parts
     part.totalNum =0 ;% CONST.BACH * scalFactor;
-    
+    part.reworkNum = 0; 
     %Simulated dimensions of a bach of this parts machined by thisProcess  
     part.dimensions = 0;
     

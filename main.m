@@ -7,7 +7,7 @@ SIGMA = 2;
 CONSTMETHOD.BOUND = BOUND;
 CONSTMETHOD.SIGMA = SIGMA;
 
-METHOD = BOUND;
+METHOD = SIGMA;
 %Define Parts and some constant
 switch METHOD
     case BOUND

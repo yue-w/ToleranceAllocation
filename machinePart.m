@@ -1,4 +1,4 @@
-function part = machinePart_sigma(thisPart, thisProcessIndex, sigma,tol, CONST)
+function part = machinePart(thisPart, thisProcessIndex, sigma,tol, CONST)
     %tol = sigma*CONST.KSIGMA;
     %tol = thisPart.tol;
     designDim = thisPart.dim;

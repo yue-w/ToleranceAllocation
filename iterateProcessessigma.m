@@ -15,7 +15,8 @@ function [allParts,data] = iterateProcessessigma(allParts, thisPartIndex,CONST,d
         
         while( sigma >= lb && sigma>0 )   
             thisPart.tol = CONST.KSIGMA*sigma;
-            thisPart = machinePart_sigma(thisPart, i, sigma, CONST);
+            tol = thisPart.tol;
+            thisPart = machinePart(thisPart, i, sigma,tol, CONST);
             %update machining cost using sigma
             thisPart.processes(i).const.machiningConst = ...
                 sigmacostequation(thisPart.processes(i).const,sigma);
