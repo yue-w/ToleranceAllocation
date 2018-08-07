@@ -8,4 +8,7 @@ y2 = a(2) + b(2)./x2;
 
 figure
 plot(x1,y1,'g',x2,y2,'b');
+legend('process 1','process 2')
+xlabel('sigma')
+ylabel('machining cost');
 

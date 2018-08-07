@@ -53,7 +53,7 @@ part2_dim_vec = Xbar_pt2_vec;
 Sdev_pt2 = standev(part2_dim_vec,dev_pt2, Xbar_pt2_vec, p);
 
 %Part 3
-machiningConstVecPt3 = [2,1]; 
+machiningConstVecPt3 = [1.2,1]; 
 reworkingConstVecPt3 = [0.5,0.5];
 Xbar_pt3_vec = part3_dim*ones(1,num_processes);
 dev_pt3 = [0.1,0.1];

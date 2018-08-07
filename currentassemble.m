@@ -1,18 +1,9 @@
-function productDim = assemble(allParts, thisPart,thisPartIndex,CONST)
-%{
-Compute the dimension of the products randomly assembled by these parts.
-Support nonlinear relationships
-%}
+function productDim = currentassemble(allParts,CONST)
     numParts = length(allParts);        
     partDims = zeros(numParts,CONST.BACH);
 
     for i = 1:numParts
-        if i ~= thisPartIndex
-            part = allParts(i);
-           
-        else
-            part = thisPart;
-        end
+        part = allParts(i);
         dims = part.dimensions;
         %Shuffle the dimensions of the products
         partDims(i,:) = dims(randperm(CONST.BACH));

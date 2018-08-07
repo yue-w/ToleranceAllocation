@@ -9,13 +9,13 @@ num_processes = 2;
 part1_dim = 1;
 part2_dim = 1;
 part3_dim = 1;
-KSIGMA = 3;
+KSIGMA = 1;
 
 BACH = 10000;
 DIM = part1_dim + part2_dim + part3_dim ;
 % LTOL =  -0.15;
 % UTOL = 0.15;
-TOL = 0.3;
+TOL = 0.2;
 LLIM = DIM - TOL;% = 3.85
 ULIM = DIM + TOL;% = 4.15
 
@@ -28,18 +28,18 @@ d = [0,0];
 
 %Lower bound and upper bound of the probability that the dimension will
 %fall between the given us and ls. The probability determines the sigma
-pHighEnd = [0.95,0.997];
-pLowEnd = [0.87,0.95];
+pHighEnd = [0.7,0.8];
+pLowEnd = [0.6,0.66];
 p = [pHighEnd;pLowEnd];
 
-constDev = 0.07;
+constDev = 0.1;
 %We use the function tolerance = k*sigma 
 %init_sigma = sqrt((TOL/KSIGMA)^2/num_part);
 init_sigma =mean( constDev./norminv((1+pHighEnd)/2));
 %init_sigma=0.02;
 STEP = init_sigma / 200;
 
-PRICE = 20;
+PRICE = 50;
 TAGUCH_K = 4;
 
 REWORK = 0;
@@ -47,7 +47,7 @@ REWORK = 0;
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK);
 
 %initialialized sigma
-init_sigma_vec = init_sigma*ones(1,num_processes);
+init_sigma_vec = init_sigma*ones(1,num_part);
 
 %Init process index
 init_processIndex = 1;
@@ -90,7 +90,8 @@ allParts(1) = part1;
 allParts(2) = part2;
 allParts(3) = part3;
 
-allParts = initsigmacost(allParts,init_sigma);
+init_processIndexvec = init_processIndex * ones(1,num_part);
+allParts = initsigmacost(allParts,init_sigma_vec,init_processIndexvec);
 
 %the total profit of the initialized state.
 [maxProfit,num_products] = computeTotalProfit(allParts,part1,0,init_processIndex,CONST);

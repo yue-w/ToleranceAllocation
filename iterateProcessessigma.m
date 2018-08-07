@@ -17,9 +17,12 @@ function [allParts,data] = iterateProcessessigma(allParts, thisPartIndex,CONST,d
             thisPart.tol = CONST.KSIGMA*sigma;
             tol = thisPart.tol;
             thisPart = machinePart(thisPart, i, sigma,tol, CONST);
+            
+            
+            
             %update machining cost using sigma
             thisPart.processes(i).const.machiningConst = ...
-                sigmacostequation(thisPart.processes(i).const,sigma);
+                sigmacostequation(thisPart.processes(i).const,tol);%Make sure to use the right value: sigma or tolerance
             
             [totalProfit,num_products] = computeTotalProfit(allParts, thisPart,thisPartIndex, i, CONST);            
             if(totalProfit>=data.max)
