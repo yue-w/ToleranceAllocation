@@ -17,6 +17,8 @@ iterate through all possible processes.
                 [allPartsCopy,data] = iterateProcessessigma(allPartsCopy, i ,CONST,data);
             case CONST.METHOD.CLUTCH
                 [allPartsCopy,data] = iterateProcessessigma(allPartsCopy, i ,CONST,data);
+            case CONST.METHOD.CLUTCHK
+                [allPartsCopy,data] = iterateProcessesbound(allPartsCopy, i ,CONST,data);
         end       
         data.max_pt(num_parts*(index-1)+i+1) = data.max;
         

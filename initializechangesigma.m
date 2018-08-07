@@ -91,7 +91,7 @@ allParts(2) = part2;
 allParts(3) = part3;
 
 init_processIndexvec = init_processIndex * ones(1,num_part);
-allParts = initsigmacost(allParts,init_sigma_vec,init_processIndexvec);
+allParts = inittolcost(allParts,init_sigma_vec,init_processIndexvec);
 
 %the total profit of the initialized state.
 [maxProfit,num_products] = computeTotalProfit(allParts,part1,0,init_processIndex,CONST);

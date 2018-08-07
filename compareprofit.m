@@ -25,17 +25,21 @@ init_processIndex2 = 2;
 init_processIndex3 = 1;
 init_processIndex4 = 3;
 init_processIndex = [init_processIndex1 init_processIndex2 init_processIndex3 init_processIndex4];
+
+tol1US = 0.2320;
+tol2US =0.2808;
+tol3US = 0.1844;
+tol4US =0.2788;
+
 %Part 1
 a = [10 5 3.5];
 b = [0.015 0.5 0.75];
 Sdev_pt1 = [0.015/KSIGMA 0.08/KSIGMA; 0.06/KSIGMA 0.15/KSIGMA; 0.12/KSIGMA 0.25/KSIGMA];
-
 tol1 = 0.179806;
 init_sigma1 = tol1/KSIGMA;
 part1 = part(a,b,part1_dim,Sdev_pt1,init_sigma1,tol1,init_processIndex1);
 %US
-tol1US = 0.2464;
-init_sigma1US = tol1/KSIGMA;
+init_sigma1US = tol1US/KSIGMA;
 part1US = part(a,b,part1_dim,Sdev_pt1,init_sigma1US,tol1US,init_processIndex1);
 
 %Part 2
@@ -46,8 +50,7 @@ tol2 =0.165358;
 init_sigma2 = tol2/KSIGMA;
 part2 = part(a,b,part2_dim,Sdev_pt2,init_sigma2,tol2,init_processIndex2);
 %US
-tol2US =0.2640;
-init_sigma2US = tol2/KSIGMA;
+init_sigma2US = tol2US/KSIGMA;
 part2US = part(a,b,part2_dim,Sdev_pt2,init_sigma2US,tol2US,init_processIndex2);
 
 %Part 3
@@ -58,7 +61,6 @@ tol3 = 0.120132;
 init_sigma3 = tol3/KSIGMA;
 part3 = part(a,b,part3_dim,Sdev_pt3,init_sigma3,tol3,init_processIndex3);
 %US
-tol3US = 0.1844;
 init_sigma3US = tol3US/KSIGMA;
 part3US = part(a,b,part3_dim,Sdev_pt3,init_sigma3US,tol3US,init_processIndex3);
 
@@ -70,7 +72,6 @@ tol4 =0.200581;
 init_sigma4 = tol4/KSIGMA;
 part4 = part(a,b,part4_dim,Sdev_pt4,init_sigma4,tol4,init_processIndex4);
 %US
-tol4US =0.2776;
 init_sigma4US = tol4US/KSIGMA;
 part4US = part(a,b,part4_dim,Sdev_pt4,init_sigma4US,tol4US,init_processIndex4);
 
@@ -86,7 +87,7 @@ allParts(3) = part3;
 allParts(4) = part4;
 
 init_tol = [tol1 tol2 tol3 tol4];
-allParts = initsigmacost(allParts,init_tol,init_processIndex );
+allParts = inittolcost(allParts,init_tol,init_processIndex );
 
 %the total profit of the initialized state.
 [maxProfit,num_products] = currenttotalprofit(allParts,CONST);
@@ -103,7 +104,7 @@ allPartsUS(3) = part3US;
 allPartsUS(4) = part4US;
 
 init_tolUS = [tol1US tol2US tol3US tol4US];
-allPartsUS = initsigmacost(allPartsUS,init_tolUS,init_processIndex );
+allPartsUS = inittolcost(allPartsUS,init_tolUS,init_processIndex );
 
 
 [maxProfitUS,num_productsUS] = currenttotalprofit(allPartsUS,CONST);
