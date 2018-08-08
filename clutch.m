@@ -10,22 +10,27 @@ part3_dim = 22.86;
 part4_dim = 101.69;
 KSIGMA = 3;
 BACH = 10000; 
-
 DIM = 0.122;
 LLIM =0.087 ;% 0.122-0.035 (rad)
 ULIM =0.157 ;% = 0.122+0.035 (rad)
 
 PRICE = 50;
 TAGUCH_K = 0;
-REWORK = 0;
 STEP = 0.02 / 50;
-
+REWORK = 0;
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK);
+
 %Init process index
 init_processIndex1 = 3;
 init_processIndex2 = 2;
 init_processIndex3 = 1;
 init_processIndex4 = 3;
+
+%Vector of the cost to rework each part
+
+reworkR = 0.3;
+reworkcostvec = reworkR*[7.7 6.9 5.0 4.89];
+
 %Part 1
 a = [10 5 3.5];
 b = [0.015 0.5 0.75];
@@ -75,7 +80,9 @@ allParts(4) = part4;
 
 init_tol = [tol1 tol2 tol3 tol4];
 init_processIndexvec = [init_processIndex1 init_processIndex2 init_processIndex3 init_processIndex4];
-allParts = inittolcost(allParts,init_tol,init_processIndexvec );
+
+allParts = inittolcost(allParts,init_tol,init_processIndexvec);
+allParts = initreworkcost(allParts,init_processIndexvec,reworkcostvec);
 
 %the total profit of the initialized state.
 [maxProfit,num_products] = computeTotalProfit(allParts,part1,0,0,CONST);

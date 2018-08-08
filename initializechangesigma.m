@@ -12,6 +12,7 @@ part3_dim = 1;
 KSIGMA = 1;
 
 BACH = 10000;
+
 DIM = part1_dim + part2_dim + part3_dim ;
 % LTOL =  -0.15;
 % UTOL = 0.15;
@@ -24,6 +25,10 @@ a = [0.030 0.020];
 b = [0.016 0.012];
 c = [0,0];
 d = [0,0];
+
+%Vector of the cost to rework each part
+reworkR = 0.5;
+reworkcostvec = reworkR*[7.7 6.9 5.0 4.89];
 
 
 %Lower bound and upper bound of the probability that the dimension will
@@ -55,30 +60,27 @@ tol = KSIGMA * init_sigma;%The tolerance is a constant times sigma
 
 %Part 1
 Xbar_pt1_vec = part1_dim*ones(1,num_processes);
-reworkingConstVecPt1 = [0.5,0.5];
 dev_pt1 = constDev*ones(1,num_processes);
 part1_dim_vec = Xbar_pt1_vec;
 Sdev_pt1 = standev(part1_dim_vec,dev_pt1, Xbar_pt1_vec, p);
-part1_process = setprocessessigma(a, b, c, d,reworkingConstVecPt1,Xbar_pt1_vec,Sdev_pt1,init_sigma_vec);
+part1_process = setprocessessigma(a, b, c, d,Xbar_pt1_vec,Sdev_pt1,init_sigma_vec);
 part1 = init_one_Part(part1_process, tol, part1_dim, init_processIndex);
 
 
 %Part 2 
 Xbar_pt2_vec = part2_dim*ones(1,num_processes);
-reworkingConstVecPt2 = [0.5,0.5];
 dev_pt2 = constDev*ones(1,num_processes);
 part2_dim_vec = Xbar_pt2_vec;
 Sdev_pt2 = standev(part2_dim_vec,dev_pt2, Xbar_pt2_vec, p);
-part2_process = setprocessessigma(a, b, c, d,reworkingConstVecPt2,Xbar_pt2_vec,Sdev_pt2,init_sigma_vec);
+part2_process = setprocessessigma(a, b, c, d,Xbar_pt2_vec,Sdev_pt2,init_sigma_vec);
 part2 = init_one_Part(part2_process, tol, part2_dim, init_processIndex);
 
 %Part 3
 Xbar_pt3_vec = part3_dim*ones(1,num_processes);
-reworkingConstVecPt3 = [0.5,0.5];
 dev_pt3 = constDev*ones(1,num_processes);
 part3_dim_vec = Xbar_pt3_vec;
 Sdev_pt3 = standev(part3_dim_vec,dev_pt3, Xbar_pt3_vec, p);
-part3_process = setprocessessigma(a, b, c, d,reworkingConstVecPt3,Xbar_pt3_vec,Sdev_pt3,init_sigma_vec);
+part3_process = setprocessessigma(a, b, c, d,Xbar_pt3_vec,Sdev_pt3,init_sigma_vec);
 part3 = init_one_Part(part3_process, tol, part3_dim, init_processIndex);
 
 %Initialize some dimensions that will be used in computing cost
@@ -92,6 +94,7 @@ allParts(3) = part3;
 
 init_processIndexvec = init_processIndex * ones(1,num_part);
 allParts = inittolcost(allParts,init_sigma_vec,init_processIndexvec);
+allParts = initreworkcost(allParts,init_processIndexvec,reworkcostvec);
 
 %the total profit of the initialized state.
 [maxProfit,num_products] = computeTotalProfit(allParts,part1,0,init_processIndex,CONST);

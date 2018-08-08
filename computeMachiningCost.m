@@ -20,7 +20,7 @@ function machiningCost = computeMachiningCost(allParts,thisPart, thisPartIndex,t
             %Cost of reworking
             if CONST.REWORK == 1
                 
-               cost_rework = part.processes(processindex).const.reworkingConst * part.reworkNum;
+               cost_rework = part.processes(processindex).const.reworkConst * part.reworkNum;
             else
                 cost_rework = 0;
             end

@@ -10,11 +10,16 @@ part4_dim = 101.69;
 KSIGMA = 3;
 BACH = 10000; 
 
+%The cost ratio of machining a new part and reworking it.
+reworkcostR = 0.3;
+reworkcostvec = reworkcostR*[7.7 6.9 5.0 4.89];
+
 DIM = 0.122;
 LLIM =0.087 ;% 0.122-0.035 (rad)
 ULIM =0.157 ;% = 0.122+0.035 (rad)
 
 PRICE = 50;
+
 TAGUCH_K = 0;
 REWORK = 0;
 STEP = 0.02 / 50;
@@ -26,10 +31,10 @@ init_processIndex3 = 1;
 init_processIndex4 = 3;
 init_processIndex = [init_processIndex1 init_processIndex2 init_processIndex3 init_processIndex4];
 
-tol1US = 0.2320;
-tol2US =0.2808;
-tol3US = 0.1844;
-tol4US =0.2788;
+tol1US = 0.25;
+tol2US =0.2508;
+tol3US = 0.1964;
+tol4US =0.2764;
 
 %Part 1
 a = [10 5 3.5];
@@ -87,8 +92,8 @@ allParts(3) = part3;
 allParts(4) = part4;
 
 init_tol = [tol1 tol2 tol3 tol4];
-allParts = inittolcost(allParts,init_tol,init_processIndex );
-
+allParts = inittolcost(allParts,init_tol,init_processIndex);
+allParts = initreworkcost(allParts,init_processIndex,reworkcostvec);
 %the total profit of the initialized state.
 [maxProfit,num_products] = currenttotalprofit(allParts,CONST);
 
@@ -104,7 +109,7 @@ allPartsUS(3) = part3US;
 allPartsUS(4) = part4US;
 
 init_tolUS = [tol1US tol2US tol3US tol4US];
-allPartsUS = inittolcost(allPartsUS,init_tolUS,init_processIndex );
-
+allPartsUS = inittolcost(allPartsUS,init_tolUS,init_processIndex);
+allPartsUS = initreworkcost(allPartsUS,init_processIndex,reworkcostvec);
 
 [maxProfitUS,num_productsUS] = currenttotalprofit(allPartsUS,CONST);

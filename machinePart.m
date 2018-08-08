@@ -17,7 +17,7 @@ function part = machinePart(thisPart, thisProcessIndex, sigma,tol, CONST)
                                                     sigma, tol, CONST.BACH, numAdded,numRework);        
    
         thisPart.totalNum = CONST.BACH + num_part_added;
-        thisPart.reworkNum = thisPart.reworkNum + num_part_reworked;
+        thisPart.reworkNum =num_part_reworked;
     else
         
         [dimensions,num_part_added] = addParts(dimensions,thisPart,thisProcessIndex, designDim,sigma, tol, CONST.BACH,numAdded);

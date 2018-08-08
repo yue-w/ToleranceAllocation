@@ -27,9 +27,15 @@ than US.)
     
     numAdded = numAdded + numSmall;
     mu = thisPart.processes(thisProcessIndex).Xbar;
+    
+      %%Assume the reworked part follows a Truncated Normal Distribution
     pd = makedist('Normal','mu',mu,'sigma',sigma);
     truncateNormal = truncate(pd,LS,US);
-    reworkedParts =  random(truncateNormal,1,num_partsLarge);      
+    reworkedParts =  random(truncateNormal,1,num_partsLarge); 
+
+      %%Assume the reworked parts have 0 deviation
+%     reworkedParts =  normrnd(mu,0,[1,num_partsLarge]); 
+    
     partsinRange = [partsinRange reworkedParts];
     
     if numSmall == 0

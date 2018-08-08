@@ -1,4 +1,4 @@
-function process = init_one_Process(lb, ub, a, b, c, d, machiningConst,reworkingConst, Xbar, Sdev)
+function process = init_one_Process(lb, ub, a, b, c, d, machiningConst,reworkConst, Xbar, Sdev)
     %lower bound and upper bound of the tolerance.
     %For the VaryBounds method, they are the bounds for the LS and US
     %For the VarySigma method, they are the bounds for the sigma
@@ -10,7 +10,7 @@ function process = init_one_Process(lb, ub, a, b, c, d, machiningConst,reworking
     const.c = c;
     const.d = d;
     const.machiningConst = machiningConst;
-    const.reworkConst = reworkingConst;%the cost to rework a part.
+    const.reworkConst = reworkConst;%the cost to rework a part.
     process.const = const;
     
     %Average dimension of parts machined by this process
