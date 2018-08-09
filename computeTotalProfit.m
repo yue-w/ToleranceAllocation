@@ -1,4 +1,4 @@
-function [totalProfit,num_products] = computeTotalProfit(allParts, thisPart, thisPartIndex, thisProcessIndex,CONST)
+function [totalProfit,num_products,taguchiLost] = computeTotalProfit(allParts, thisPart, thisPartIndex, thisProcessIndex,CONST)
 %{
 This function compute the total cost of current tollerance allocation
 strategy. Different cost-tollerance models can be used by using different

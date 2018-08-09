@@ -47,8 +47,11 @@ STEP = init_sigma / 200;
 PRICE = 50;
 TAGUCH_K = 4;
 
-REWORK = 0;
-
+REWORKSIGN.ADDPART = 0;%Do not do rework
+REWORKSIGN.ONESIDEREWORK = 1;%Do one side rework (Rework Larg part)
+REWORKSIGN.TWOSIDEREWORK = 2;%Two sides rework
+REWORK.FLAG = REWORKSIGN;
+REWORK.V = 0;%set the value.
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK);
 
 %initialialized sigma
@@ -97,9 +100,9 @@ allParts = inittolcost(allParts,init_sigma_vec,init_processIndexvec);
 allParts = initreworkcost(allParts,init_processIndexvec,reworkcostvec);
 
 %the total profit of the initialized state.
-[maxProfit,num_products] = computeTotalProfit(allParts,part1,0,init_processIndex,CONST);
+[maxProfit,num_products,~] = computeTotalProfit(allParts,part1,0,init_processIndex,CONST);
 
-data = setData(maxProfit, maxIteration,num_part,num_products,allParts);
+data = setData(maxProfit, maxIteration,num_part,num_products,allParts,0);
 
 
 end

@@ -25,12 +25,13 @@ iterate through all possible processes.
         data.num_products_pt(num_parts*(index-1)+i+1) = data.num_products;
     end
     data.max_it(index+1) = data.max;
+    data.TaguchiLoss_it(index+1) = data.TaguchiLoss;
     data.num_products_it(index+1) = data.num_products;
     
     for parts_index = 1:num_parts
-        data.num_prts(parts_index,index+1) = allParts(parts_index).totalNum;
+        data.num_prts(parts_index,index+1) = allPartsCopy(parts_index).machinedNum;
         
-        data.tol(parts_index,index+1) = allParts(parts_index).tol;
+        data.tol(parts_index,index+1) = allPartsCopy(parts_index).tol;
     end
 allParts = allPartsCopy;
 end

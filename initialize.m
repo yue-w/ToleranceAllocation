@@ -17,7 +17,12 @@ STEP = TOL / 100;
 PRICE = 10;
 TAGUCH_K = 1;
 KSIGMA = 0;
-REWORK = 0;
+
+REWORKSIGN.ADDPART = 0;%Do not do rework
+REWORKSIGN.ONESIDEREWORK = 1;%Do one side rework (Rework Larg part)
+REWORKSIGN.TWOSIDEREWORK = 2;%Two sides rework
+REWORK.FLAG = REWORKSIGN;
+REWORK.V = 0;%set the value.
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK);
 
 %lb, ub are the searching area for the tolerance of processes. Set it to the tolerance
@@ -80,9 +85,9 @@ allParts(2) = part2;
 allParts(3) = part3;
 
 %the total profit of the initialized state.
-[maxProfit,num_products] = computeTotalProfit(allParts,part1,0,init_processIndex,CONST);
+[maxProfit,num_products,~] = computeTotalProfit(allParts,part1,0,init_processIndex,CONST);
 
-data = setData(maxProfit, maxIteration,num_part,num_products,allParts);
+data = setData(maxProfit, maxIteration,num_part,num_products,allParts,0);
 
 
 end

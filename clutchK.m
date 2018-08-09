@@ -23,6 +23,11 @@ tol2 = 0.2508;
 tol3 = 0.1964;
 tol4 = 0.2764;
 
+REWORKSIGN.ADDPART = 0;%Do not do rework
+REWORKSIGN.ONESIDEREWORK = 1;%Do one side rework (Rework Larg part)
+REWORKSIGN.TWOSIDEREWORK = 2;%Two sides rework
+REWORK.FLAG = REWORKSIGN;
+REWORK.V = 0;%set the value.
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK);
 
 reworkcostR = 0.3;
@@ -97,7 +102,7 @@ allParts(4) = part4;
 %the total profit of the initialized state.
 [maxProfit,num_products] = currenttotalprofit(allParts,CONST);
 
-data = setData(maxProfit, maxIteration,num_part,num_products,allParts);
+data = setData(maxProfit, maxIteration,num_part,num_products,allParts,0);
 
 
 end

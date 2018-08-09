@@ -24,9 +24,10 @@ function [allParts,data] = iterateProcessessigma(allParts, thisPartIndex,CONST,d
             thisPart.processes(i).const.machiningConst = ...
                 tolcostequation(thisPart.processes(i).const,tol);%Make sure to use the right value: sigma or tolerance
             
-            [totalProfit,num_products] = computeTotalProfit(allParts, thisPart,thisPartIndex, i, CONST);            
+            [totalProfit,num_products,TaguchiLoss] = computeTotalProfit(allParts, thisPart,thisPartIndex, i, CONST);            
             if(totalProfit>=data.max)
                data.max = totalProfit;
+               data.TaguchiLoss = TaguchiLoss;
                data.num_products = num_products;            
                %thisPart.tol = CONST.KSIGMA*sigma;               
                thisPart.processIndex = i;

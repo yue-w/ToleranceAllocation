@@ -22,9 +22,10 @@ INPUT:
         sigma = thisProcess.Sdev;
         while( tol >= lb && tol>0 )   
             thisPart = machinePart(thisPart, i,sigma,tol, CONST);
-            [totalProfit,num_products] = computeTotalProfit(allParts, thisPart,thisPartIndex, i, CONST);            
+            [totalProfit,num_products,taguchiLost] = computeTotalProfit(allParts, thisPart,thisPartIndex, i, CONST);            
             if(totalProfit>=data.max)
                data.max = totalProfit;
+               data.TaguchiLoss = taguchiLost;
                data.num_products = num_products;
                thisPart.tol = tol; 
                thisPart.processIndex = i;
