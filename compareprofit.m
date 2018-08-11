@@ -35,7 +35,10 @@ REWORKSIGN.ONESIDEREWORK = 1;%Do one side rework (Rework Larg part)
 REWORKSIGN.TWOSIDEREWORK = 2;%Two sides rework
 REWORK.FLAG = REWORKSIGN;
 REWORK.V = 0;%set the value.
-CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK);
+
+%Whether inspect each components
+INSPECT = 1;
+CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT);
 
 init_processIndex1 = 3;
 init_processIndex2 = 2;

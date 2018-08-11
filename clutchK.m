@@ -25,7 +25,10 @@ REWORKSIGN.ONESIDEREWORK = 1;%Do one side rework (Rework Larg part)
 REWORKSIGN.TWOSIDEREWORK = 2;%Two sides rework
 REWORK.FLAG = REWORKSIGN;
 REWORK.V = 2;%set the value.
-CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK);
+
+%Whether inspect each components
+INSPECT = 1;
+CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT);
 
 reworkcostR = 0.1;
 %lb, ub are the searching area for the tolerance of processes. Set it to the tolerance

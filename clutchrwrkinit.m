@@ -7,7 +7,7 @@ Case study. Use bigger sigma to compare the result of rework.
     a = [0 0 0 0];
     b = [0 0 0 0];
     
-    initR = 0.1; step = 0.05; topR = 0.15;
+    initR = 0.1; step = 0.05; topR = 1;
     lengths = (topR-initR)/step+1;
     lengths = int16(lengths);
     R(lengths)=0;
