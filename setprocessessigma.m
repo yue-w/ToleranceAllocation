@@ -1,8 +1,8 @@
 function processes=setprocessessigma(a, b, c, d,Xbarvec,Sdev,init_sigma)
-    num_process = length(Sdev);
+    num_process = size(Sdev,1);
     %Preallocate process. Allocate memory
     processes(num_process) = init_one_Process(0, 0, a(1), b(1), c(1), d(1), 0,0, 0, 0);
-    if(length(Sdev)==length(Xbarvec))
+    if(size(Sdev,1)==length(Xbarvec))
         for i = 1:num_process
             machiningConst = 0;
             reworkingConst = 0;

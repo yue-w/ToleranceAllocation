@@ -15,22 +15,19 @@ TOL = 0.035;
 STEP = TOL / 100;
 PRICE = 50;
 TAGUCH_K = 0;
-REWORK = 0;
-
-tol1 = 0.25;
-tol2 = 0.2508;
-
-tol3 = 0.1964;
-tol4 = 0.2764;
+tol1 = 0.232;
+tol2 = 0.2808;
+tol3 = 0.1844;
+tol4 = 0.2788;
 
 REWORKSIGN.ADDPART = 0;%Do not do rework
 REWORKSIGN.ONESIDEREWORK = 1;%Do one side rework (Rework Larg part)
 REWORKSIGN.TWOSIDEREWORK = 2;%Two sides rework
 REWORK.FLAG = REWORKSIGN;
-REWORK.V = 0;%set the value.
+REWORK.V = 2;%set the value.
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK);
 
-reworkcostR = 0.3;
+reworkcostR = 0.1;
 %lb, ub are the searching area for the tolerance of processes. Set it to the tolerance
 %of the product.
 

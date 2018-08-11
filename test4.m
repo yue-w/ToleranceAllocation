@@ -1,2 +1,13 @@
-a = [1 2 3; 4 5 6];
-b = a(1,:) + a(2,:);
+    fileName = 'rst';
+    
+    directory = pwd;%Current directory
+    directory = fullfile(directory,'\data');
+    %Write the result to csv
+    filenameCSV = strcat(fileName,'.csv');
+    fileDestCSV  = fullfile(directory,filenameCSV); 
+    
+    r = [1 2 3 4];
+    name = 'name';
+    resultVector={name,r};
+    
+    csvwrite(fileDestCSV,resultVector);

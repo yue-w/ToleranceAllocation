@@ -1,5 +1,12 @@
 %Compare the total profit of two methods
-
+BOUND = 1;
+SIGMA = 2;
+CLUTCH =3;%The clutch example, tol=3*tol. optimize sigma.
+CLUTCHK = 4;%The clutch example, Fix sigma, optimize the k in tol=sigma*K
+CONSTMETHOD.BOUND = BOUND;
+CONSTMETHOD.SIGMA = SIGMA;
+CONSTMETHOD.CLUTCH = CLUTCH;
+CONSTMETHOD.CLUTCHK = CLUTCHK;
 %Old method
 num_part = 4;
 %num_processes = 3;
@@ -21,7 +28,7 @@ ULIM =0.157 ;% = 0.122+0.035 (rad)
 PRICE = 50;
 
 TAGUCH_K = 0;
-REWORK = 0;
+
 STEP = 0.02 / 50;
 REWORKSIGN.ADDPART = 0;%Do not do rework
 REWORKSIGN.ONESIDEREWORK = 1;%Do one side rework (Rework Larg part)
