@@ -18,7 +18,7 @@ ULIM =0.157 ;% = 0.122+0.035 (rad)
 PRICE = 50;
 A = 0;
 TAGUCH_K = A/(0.035^2);
-STEP = 0.02 / 50;
+STEP = 0.015/50;
 
 
 REWORKSIGN.ADDPART = 0;%Do not do rework
@@ -39,8 +39,8 @@ init_processIndex4 = 1;
 
 %Vector of the cost to rework each part
 
-reworkR = 0.1;
-reworkcostvec = reworkR*[7.7 6.9 5.0 4.89];
+reworkR = 0.3;
+reworkcostvec = reworkR*[6.5 5.4 4 3.5];
 
 %Part 1
 a = [10 5 3.5];

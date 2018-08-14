@@ -15,9 +15,9 @@ LLIM =0.087 ;% 0.122-0.035 (rad)
 ULIM =0.157 ;% = 0.122+0.035 (rad)
 
 PRICE = 50;
-A = 0;
+A = 100;
 TAGUCH_K = A/(0.035^2);
-STEP = 0.02 / 50;
+STEP = 0.015/50;
 
 
 REWORKSIGN.ADDPART = 0;%Do not do rework
@@ -27,7 +27,7 @@ REWORK.FLAG = REWORKSIGN;
 REWORK.V = 0;%set the value.
 
 %Whether inspect each components
-INSPECT = 0;
+INSPECT = 1;
 
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT);
 

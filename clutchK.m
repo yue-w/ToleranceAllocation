@@ -13,12 +13,16 @@ ULIM =0.157 ;% = 0.122+0.035 (rad)
 TOL = 0.035;
 %Iterate step for the tolerance
 STEP = TOL / 100;
+
 PRICE = 50;
-TAGUCH_K = 0;
-tol1 = 0.232;
-tol2 = 0.2808;
-tol3 = 0.1844;
-tol4 = 0.2788;
+
+A = 100;
+TAGUCH_K = A/(0.035^2);
+
+tol1 = 0.2212;
+tol2 = 0.2388;
+tol3 = 0.1514;
+tol4 = 0.2371;
 
 REWORKSIGN.ADDPART = 0;%Do not do rework
 REWORKSIGN.ONESIDEREWORK = 1;%Do one side rework (Rework Larg part)
@@ -30,7 +34,7 @@ REWORK.V = 2;%set the value.
 INSPECT = 1;
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT);
 
-reworkcostR = 0.1;
+reworkcostR = 0.3;
 %lb, ub are the searching area for the tolerance of processes. Set it to the tolerance
 %of the product.
 

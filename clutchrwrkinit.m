@@ -2,8 +2,8 @@ function [allParts, CONST,data]=clutchrwrkinit(maxIteration,CONSTMETHOD,METHOD)
 %{
 Case study. Use bigger sigma to compare the result of rework.
 %}
-    tolvec =[0.25 0.3 0.25 0.4];
-    costVec = [6.5 5.16 3.7 2.7];
+    sigmavec =[0.083033 0.0916 0.066367 0.098533];
+    costVec = [6.510839 5.365357 4.006781 3.476996];
     a = [0 0 0 0];
     b = [0 0 0 0];
     
@@ -13,12 +13,13 @@ Case study. Use bigger sigma to compare the result of rework.
     R(lengths)=0;
     index = 1;
     for reworkR = initR:step:topR
-        [allParts, CONST,data] = clutchrework(tolvec,maxIteration,reworkR,costVec,a,b,CONSTMETHOD);
+        [allParts, CONST,data] = clutchrework(sigmavec,maxIteration,reworkR,costVec,a,b,CONSTMETHOD);
         [allParts,data] = doValueIteration(allParts, maxIteration,CONST,data,METHOD); 
         R(index) = reworkR;
         datavec(index) = data;
         partsvec(index,:) = allParts;
         index = index + 1;
+        
     end
     result.R = R;
     result.data = datavec;

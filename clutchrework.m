@@ -1,4 +1,4 @@
-function [allParts, CONST,data] = clutchrework(tolvec,maxIteration,reworkR,costVec,a,b,CONSTMETHOD)
+function [allParts, CONST,data] = clutchrework(sigmavec,maxIteration,reworkR,costVec,a,b,CONSTMETHOD)
 num_part = 4;
 %num_processes = 3;
 part1_dim = 55.29;
@@ -41,8 +41,8 @@ tolscale = 3;
 %Part 1
 %Sdev_pt1 = sigmascale*[0.015/KSIGMA 0.08/KSIGMA; 0.06/KSIGMA 0.15/KSIGMA; 0.12/KSIGMA 0.25/KSIGMA];
 % init_sigma1 = mean(Sdev_pt1(1,:),2);
-Sdev_pt1 = tolvec(1)/KSIGMA;
-tol1 = tolvec(1);%The tolerance is a constant times sigma
+Sdev_pt1 = sigmavec(1);
+tol1 = sigmavec(1)*KSIGMA;%The tolerance is a constant times sigma
 ub = Sdev_pt1 * tolscale;     
 lb = ub/20;
 part1_process = setprocesses(lb, ub, a(1), b(1), c, d,costVec(1),reworkcostvec(1),part1_dim,Sdev_pt1);
@@ -51,8 +51,8 @@ part1 = init_one_Part(part1_process, tol1, part1_dim, init_processIndex);
 %Part 2
 %Sdev_pt1 = sigmascale*[0.015/KSIGMA 0.08/KSIGMA; 0.06/KSIGMA 0.15/KSIGMA; 0.12/KSIGMA 0.25/KSIGMA];
 % init_sigma1 = mean(Sdev_pt1(1,:),2);
-Sdev_pt2 = tolvec(2)/KSIGMA;
-tol2 =  tolvec(2);%The tolerance is a constant times sigma
+Sdev_pt2 = sigmavec(2);
+tol2 =  sigmavec(2)*KSIGMA;%The tolerance is a constant times sigma
 ub = Sdev_pt2 * tolscale;     
 lb = ub/20;
 part2_process = setprocesses(lb, ub, a(2), b(2), c, d,costVec(2),reworkcostvec(2),part2_dim,Sdev_pt2);
@@ -61,8 +61,8 @@ part2 = init_one_Part(part2_process, tol2, part2_dim, init_processIndex);
 %Part 3
 %Sdev_pt1 = sigmascale*[0.015/KSIGMA 0.08/KSIGMA; 0.06/KSIGMA 0.15/KSIGMA; 0.12/KSIGMA 0.25/KSIGMA];
 % init_sigma1 = mean(Sdev_pt1(1,:),2);
-Sdev_pt3 = tolvec(3)/KSIGMA;
-tol3 =  tolvec(3);%The tolerance is a constant times sigma
+Sdev_pt3 = sigmavec(3);
+tol3 =  sigmavec(3)*KSIGMA;%The tolerance is a constant times sigma
 ub = Sdev_pt3 * tolscale;     
 lb = ub/20;
 part3_process = setprocesses(lb, ub, a(3), b(3), c, d,costVec(3),reworkcostvec(3),part3_dim,Sdev_pt3);
@@ -71,8 +71,8 @@ part3 = init_one_Part(part3_process, tol3, part3_dim, init_processIndex);
 %Part 4
 %Sdev_pt1 = sigmascale*[0.015/KSIGMA 0.08/KSIGMA; 0.06/KSIGMA 0.15/KSIGMA; 0.12/KSIGMA 0.25/KSIGMA];
 % init_sigma1 = mean(Sdev_pt1(1,:),2);
-Sdev_pt4 = tolvec(4)/KSIGMA;
-tol4 = tolvec(4);%The tolerance is a constant times sigma
+Sdev_pt4 = sigmavec(4);
+tol4 =  sigmavec(4)*KSIGMA;%The tolerance is a constant times sigma
 ub = Sdev_pt4 * tolscale;     
 lb = ub/20;
 part4_process = setprocesses(lb, ub, a(4), b(4), c, d,costVec(4),reworkcostvec(4),part4_dim,Sdev_pt4);
