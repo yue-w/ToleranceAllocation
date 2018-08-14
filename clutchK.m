@@ -16,13 +16,32 @@ STEP = TOL / 100;
 
 PRICE = 50;
 
-A = 100;
+A = 0;
 TAGUCH_K = A/(0.035^2);
 
-tol1 = 0.2212;
-tol2 = 0.2388;
-tol3 = 0.1514;
-tol4 = 0.2371;
+
+    if A == 0
+        sigma1 = 0.083033;
+        sigma2 = 0.0916;
+        sigma3 = 0.066367;
+        sigma4 = 0.098533;   
+    elseif A==20
+        sigma1 = 0.073733;
+        sigma2 = 0.0796;
+        sigma3 = 0.050467;
+        sigma4 = 0.079033;           
+    elseif A==100
+        sigma1 = 0.0461;
+        sigma2 = 0.0535;
+        sigma3 = 0.039667;
+        sigma4 = 0.068533;   
+    end
+    
+%%For A=100
+% sigma1 = 0.0461;
+% sigma2 = 0.0535;
+% sigma3 = 0.039667;
+% sigma4 = 0.068533;
 
 REWORKSIGN.ADDPART = 0;%Do not do rework
 REWORKSIGN.ONESIDEREWORK = 1;%Do one side rework (Rework Larg part)
@@ -52,7 +71,8 @@ init_processIndex = 1;
 %Part 1
 CST.a = 3.5;
 CST.b = 0.75;
-Sdev_pt1 =tol1 / KSIGMA;
+Sdev_pt1 =sigma1;
+tol1 = Sdev_pt1*KSIGMA;
 machiningConst1 =  tolcostequation(CST,tol1); 
 reworkingConst = reworkcostR*machiningConst1;
 ub = 0.464;     
@@ -63,7 +83,8 @@ part1 = init_one_Part(part1_process, tol1, part1_dim, init_processIndex);
 %Part 2
 CST.a = 3.0;
 CST.b = 0.65;
-Sdev_pt2 =tol2/KSIGMA;
+Sdev_pt2 =sigma2;
+tol2 = Sdev_pt2*KSIGMA;
 machiningConst2 =  tolcostequation(CST,tol2); 
 reworkingConst = reworkcostR*machiningConst2;
 ub = 0.5616;     
@@ -74,7 +95,8 @@ part2 = init_one_Part(part2_process, tol2, part2_dim, init_processIndex);
 %Part 3
 CST.a = 2.5;
 CST.b = 0.3;
-Sdev_pt3 =tol3/KSIGMA;
+Sdev_pt3 =sigma3;
+tol3 = Sdev_pt3*KSIGMA;
 machiningConst3 =  tolcostequation(CST,tol3); 
 reworkingConst = reworkcostR*machiningConst3;
 ub = 0.3688;     
@@ -85,7 +107,8 @@ part3 = init_one_Part(part3_process, tol3, part3_dim, init_processIndex);
 %Part 4
 CST.a = 0.5;
 CST.b = 0.88;
-Sdev_pt4 =tol4/KSIGMA;
+Sdev_pt4 =sigma4;
+tol4 = Sdev_pt4*KSIGMA;
 machiningConst4 =  tolcostequation(CST,tol4); 
 reworkingConst = reworkcostR*machiningConst4;
 ub = 0.5576;     

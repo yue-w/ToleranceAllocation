@@ -1,4 +1,4 @@
-function [allParts, CONST,data] = clutchrework(sigmavec,maxIteration,reworkR,costVec,a,b,CONSTMETHOD)
+function [allParts, CONST,data] = clutchrework(sigmavec,maxIteration,reworkR,costVec,a,b,CONSTMETHOD,A)
 num_part = 4;
 %num_processes = 3;
 part1_dim = 55.29;
@@ -12,13 +12,14 @@ LLIM =0.087 ;% 0.122-0.035 (rad)
 ULIM =0.157 ;% = 0.122+0.035 (rad)
 
 PRICE = 50;
-A = 20;
+
 TAGUCH_K = A/(0.035^2);
 STEP = 0.02 / 50;
 
 
 REWORKSIGN.ADDPART = 0;%Do not do rework
 REWORKSIGN.ONESIDEREWORK = 1;%Do one side rework (Rework Larg part)
+
 REWORKSIGN.TWOSIDEREWORK = 2;%Two sides rework
 REWORK.FLAG = REWORKSIGN;
 REWORK.V = 2;%set the value.
