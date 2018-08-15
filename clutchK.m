@@ -16,7 +16,7 @@ STEP = TOL / 100;
 
 PRICE = 50;
 
-A = 0;
+A = 20;
 TAGUCH_K = A/(0.035^2);
 
 
@@ -47,7 +47,7 @@ REWORKSIGN.ADDPART = 0;%Do not do rework
 REWORKSIGN.ONESIDEREWORK = 1;%Do one side rework (Rework Larg part)
 REWORKSIGN.TWOSIDEREWORK = 2;%Two sides rework
 REWORK.FLAG = REWORKSIGN;
-REWORK.V = 2;%set the value.
+REWORK.V = 0;%set the value.
 
 %Whether inspect each components
 INSPECT = 1;
@@ -67,7 +67,7 @@ init_processIndex = 1;
 % init_processIndex4 = 3;
 
 %optsigma = [0.2464 0.2640 0.1844 0.2776];
-
+limitRatio = 6;
 %Part 1
 CST.a = 3.5;
 CST.b = 0.75;
@@ -75,7 +75,7 @@ Sdev_pt1 =sigma1;
 tol1 = Sdev_pt1*KSIGMA;
 machiningConst1 =  tolcostequation(CST,tol1); 
 reworkingConst = reworkcostR*machiningConst1;
-ub = 0.464;     
+ub = limitRatio*Sdev_pt1;     
 lb = ub/20;
 part1_process = setprocesses(lb, ub, CST.a, CST.b, c, d,machiningConst1,reworkingConst,part1_dim,Sdev_pt1);
 part1 = init_one_Part(part1_process, tol1, part1_dim, init_processIndex);
@@ -87,7 +87,7 @@ Sdev_pt2 =sigma2;
 tol2 = Sdev_pt2*KSIGMA;
 machiningConst2 =  tolcostequation(CST,tol2); 
 reworkingConst = reworkcostR*machiningConst2;
-ub = 0.5616;     
+ub = limitRatio*Sdev_pt2;     
 lb = ub/20;
 part2_process = setprocesses(lb, ub, CST.a, CST.b, c, d,machiningConst2,reworkingConst,part2_dim,Sdev_pt2);
 part2 = init_one_Part(part2_process, tol2, part2_dim, init_processIndex);
@@ -99,7 +99,7 @@ Sdev_pt3 =sigma3;
 tol3 = Sdev_pt3*KSIGMA;
 machiningConst3 =  tolcostequation(CST,tol3); 
 reworkingConst = reworkcostR*machiningConst3;
-ub = 0.3688;     
+ub = limitRatio*Sdev_pt3;     
 lb = ub/20;
 part3_process = setprocesses(lb, ub, CST.a, CST.b, c, d,machiningConst3,reworkingConst,part3_dim,Sdev_pt3);
 part3 = init_one_Part(part3_process, tol3, part3_dim, init_processIndex);
@@ -111,7 +111,7 @@ Sdev_pt4 =sigma4;
 tol4 = Sdev_pt4*KSIGMA;
 machiningConst4 =  tolcostequation(CST,tol4); 
 reworkingConst = reworkcostR*machiningConst4;
-ub = 0.5576;     
+ub = limitRatio*Sdev_pt4;     
 lb = ub/20;
 part4_process = setprocesses(lb, ub, CST.a, CST.b, c, d,machiningConst4,reworkingConst,part4_dim,Sdev_pt4);
 part4 = init_one_Part(part4_process, tol4, part4_dim, init_processIndex);
