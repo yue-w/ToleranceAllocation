@@ -2,18 +2,24 @@ function [allParts, CONST,data]=clutchrwrkinit(maxIteration,CONSTMETHOD,METHOD)
 %{
 Case study. Use bigger sigma to compare the result of rework.
 %}
-A = 20;
+    A = 20;
+    a = [3.5 3.0 2.5 0.5];%The value of a and b are reduntant, because the cost is given.
+    b = [0.75 0.65 0.3 0.88];
     if A==0
         sigmavec =[0.083033 0.0916 0.066367 0.098533];
+        costVec = [6.510839 5.365357 4.006781 3.476996];        
     elseif A==20
         sigmavec =[0.073733 0.0796 0.050467 0.079033];
+        costVec = [6.890596745 5.721943049 4.481505945 4.211514129];        
     elseif A==100
         sigmavec =[0.0461 0.0535 0.039667 0.068533];
+        costVec = [8.615328995 7.049844237 5.021008403 4.780155642];        
+        a = [5.0 3.0 2.5 0.5];%The value of a and b are reduntant, because the cost is given.
+        b = [0.5 0.65 0.3 0.88];        
     end
 
-    costVec = [6.510839 5.365357 4.006781 3.476996];
-    a = [0 0 0 0];
-    b = [0 0 0 0];
+
+
     
     initR = 0.1; step = 0.05; topR = 1;
     lengths = (topR-initR)/step+1;

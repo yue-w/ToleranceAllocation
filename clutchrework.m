@@ -37,7 +37,7 @@ init_processIndex = 1;
 reworkcostvec = reworkR*costVec;
 
 c = 0; d = 0;
-tolscale = 3;
+tolscale = 6;
 
 %Part 1
 %Sdev_pt1 = sigmascale*[0.015/KSIGMA 0.08/KSIGMA; 0.06/KSIGMA 0.15/KSIGMA; 0.12/KSIGMA 0.25/KSIGMA];

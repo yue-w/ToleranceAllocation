@@ -16,7 +16,7 @@ STEP = TOL / 100;
 
 PRICE = 50;
 
-A = 20;
+A = 100;
 TAGUCH_K = A/(0.035^2);
 
 
@@ -69,8 +69,14 @@ init_processIndex = 1;
 %optsigma = [0.2464 0.2640 0.1844 0.2776];
 limitRatio = 6;
 %Part 1
-CST.a = 3.5;
-CST.b = 0.75;
+%If A = 100, the process for the first part is 2, other wise, it is 3
+if A~=100
+    CST.a = 3.5;
+    CST.b = 0.75;  
+else
+    CST.a = 5.0;
+    CST.b = 0.5;  
+end
 Sdev_pt1 =sigma1;
 tol1 = Sdev_pt1*KSIGMA;
 machiningConst1 =  tolcostequation(CST,tol1); 
