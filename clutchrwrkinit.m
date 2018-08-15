@@ -2,7 +2,7 @@ function [allParts, CONST,data]=clutchrwrkinit(maxIteration,CONSTMETHOD,METHOD)
 %{
 Case study. Use bigger sigma to compare the result of rework.
 %}
-    A = 20;
+    A = 0;
     a = [3.5 3.0 2.5 0.5];%The value of a and b are reduntant, because the cost is given.
     b = [0.75 0.65 0.3 0.88];
     if A==0
@@ -17,29 +17,35 @@ Case study. Use bigger sigma to compare the result of rework.
         a = [5.0 3.0 2.5 0.5];%The value of a and b are reduntant, because the cost is given.
         b = [0.5 0.65 0.3 0.88];        
     end
-
-
-
-    
     initR = 0.1; step = 0.05; topR = 1;
     lengths = (topR-initR)/step+1;
+    
     lengths = int16(lengths);
     R(lengths)=0;
     index = 1;
     for reworkR = initR:step:topR
-        [allParts, CONST,data] = clutchrework(sigmavec,maxIteration,reworkR,costVec,a,b,CONSTMETHOD,A);
-        [allParts,data] = doValueIteration(allParts, maxIteration,CONST,data,METHOD); 
+        
+        %Average the results of 4 times
+        times = 4;
+        profit = 0;
+        for j = 1:times
+            [allParts, CONST,data] = clutchrework(sigmavec,maxIteration,reworkR,costVec,a,b,CONSTMETHOD,A);
+            [allParts,data] = doValueIteration(allParts, maxIteration,CONST,data,METHOD); 
+            profit = profit + data.max;
+        end
         R(index) = reworkR;
-        datavec(index) = data;
-        partsvec(index,:) = allParts;
-        index = index + 1;
+        datavec(index) = profit/times;
+%         datavec(index) = data;
+%         partsvec(index,:) = allParts;
+%         index = index + 1;
         
     end
     result.R = R;
     result.data = datavec;
-    result.allParts = partsvec;
+    %result.allParts = partsvec;
     %Write the result to a file
-    writetofile(result);    
+    %writetofile(result);
+    writetofilesimple(result);
 end
 
 function writetofile(result)
@@ -104,4 +110,22 @@ function writetofile(result)
     row 9: reworked num
 
 %}
+end
+
+function writetofilesimple(result)
+    num = length(result.R);
+    resultVectorRevenueLoss = zeros(1,num); 
+    for index=1:num      
+        resultVectorRevenueLoss(index) = result.data(index).max;            
+        %resultVector(3,index) = result.data(index).max;
+    end
+    resultVectorRevenueLoss = [result.R;resultVectorRevenueLoss];
+
+    directory = pwd;%Current directory
+    directory = fullfile(directory,'\data');
+    %Revenue and Taguchi Loss
+    fileName = 'revenueandloss'; 
+    filenameCSV = strcat(fileName,'.csv');
+    fileDestCSV  = fullfile(directory,filenameCSV); 
+    csvwrite(fileDestCSV,resultVectorRevenueLoss);
 end
