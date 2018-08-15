@@ -22,6 +22,7 @@ Case study. Use bigger sigma to compare the result of rework.
     
     lengths = int16(lengths);
     R(lengths)=0;
+    datavec(lengths) = 0;
     index = 1;
     for reworkR = initR:step:topR
         
@@ -37,7 +38,7 @@ Case study. Use bigger sigma to compare the result of rework.
         datavec(index) = profit/times;
 %         datavec(index) = data;
 %         partsvec(index,:) = allParts;
-%         index = index + 1;
+          index = index + 1;
         
     end
     result.R = R;
@@ -116,7 +117,7 @@ function writetofilesimple(result)
     num = length(result.R);
     resultVectorRevenueLoss = zeros(1,num); 
     for index=1:num      
-        resultVectorRevenueLoss(index) = result.data(index).max;            
+        resultVectorRevenueLoss(index) = result.data(index);            
         %resultVector(3,index) = result.data(index).max;
     end
     resultVectorRevenueLoss = [result.R;resultVectorRevenueLoss];
