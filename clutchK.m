@@ -21,15 +21,15 @@ TAGUCH_K = A/(0.035^2);
 
 
     if A == 0
-        sigma1 = 0.083033;
-        sigma2 = 0.0916;
-        sigma3 = 0.066367;
-        sigma4 = 0.098533;   
+        sigma1 = 0.083333333;
+        sigma2 = 0.0991;
+        sigma3 = 0.065166667;
+        sigma4 = 0.131533333;   
     elseif A==20
-        sigma1 = 0.073733;
-        sigma2 = 0.0796;
-        sigma3 = 0.050467;
-        sigma4 = 0.079033;           
+        sigma1 = 0.082733333;
+        sigma2 = 0.0799;
+        sigma3 = 0.052866667;
+        sigma4 = 0.091033333;           
     elseif A==100
         sigma1 = 0.0461;
         sigma2 = 0.0535;
