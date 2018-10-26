@@ -15,7 +15,7 @@ LLIM =0.087 ;% 0.122-0.035 (rad)
 ULIM =0.157 ;% = 0.122+0.035 (rad)
 
 PRICE = 50;
-A = 100;
+A = 0;
 TAGUCH_K = A/(0.035^2);
 STEP = 0.015/50;
 
@@ -29,7 +29,10 @@ REWORK.V = 0;%set the value.
 %Whether inspect each components
 INSPECT = 1;
 
-CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT);
+%Whether to use benefit or unit cost as the metric. 0 is profit, 1 is unit
+%cost.
+METRIC = 1;
+CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT,METRIC);
 
 %Init process index
 init_processIndex1 = 3;

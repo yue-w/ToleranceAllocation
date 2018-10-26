@@ -29,7 +29,9 @@ REWORK.V = 0;%set the value.
 
 %Whether inspect each components
 INSPECT = 1;
-CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT);
+%Whether to use benefit or unit cost as the metric. 0 is profit, 1 is unit cost.
+METRIC = 1;
+CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT,METRIC);
 
 %Init process index
 init_processIndex1 = 1;
@@ -95,9 +97,20 @@ init_processIndexvec = [init_processIndex1 init_processIndex2 init_processIndex3
 allParts = inittolcost(allParts,init_tol,init_processIndexvec);
 allParts = initreworkcost(allParts,init_processIndexvec,reworkcostvec);
 
-%the total profit of the initialized state.
-[maxProfit,num_products,TaguchiLoss] = computeTotalProfit(allParts,part1,0,0,CONST);
+switch CONST.METRIC
+    case 0 % if benefit is used as the metric
+        %the total profit of the initialized state.
+        [maxProfit,num_products,TaguchiLoss] = computeTotalProfit(allParts,part1,0,0,CONST);
+        metric = maxProfit;
+    case 1 % if unit is used as the metric
+        [unitCost,num_products,TaguchiLoss] = computeUnitCost(allParts, part1,0, 0, CONST); 
+        %Put a negative here so that we can unify the
+        %comparation to be the larger the better. (larger negative cost means lower positive cost, e.g. -1>-3)
+        metric = -unitCost;
+end
 
-data = setData(maxProfit, maxIteration,num_part,num_products,allParts,TaguchiLoss);
+%[maxProfitcurrent,num_productscurrent] = currenttotalprofit(allParts,CONST);
+
+data = setData(metric, maxIteration,num_part,num_products,allParts,TaguchiLoss);
 
 end

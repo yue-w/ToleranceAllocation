@@ -16,7 +16,7 @@ STEP = TOL / 100;
 
 PRICE = 50;
 
-A = 100;
+A = 0;
 TAGUCH_K = A/(0.035^2);
 
 
@@ -51,7 +51,11 @@ REWORK.V = 0;%set the value.
 
 %Whether inspect each components
 INSPECT = 1;
-CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT);
+
+%Whether to use benefit or unit cost as the metric. 0 is profit, 1 is unit
+%cost.
+METRIC = 1;
+CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT,METRIC);
 
 reworkcostR = 0.3;
 %lb, ub are the searching area for the tolerance of processes. Set it to the tolerance
@@ -133,9 +137,22 @@ allParts(2) = part2;
 allParts(3) = part3;
 allParts(4) = part4;
 %the total profit of the initialized state.
-[maxProfit,num_products] = currenttotalprofit(allParts,CONST);
 
-data = setData(maxProfit, maxIteration,num_part,num_products,allParts,0);
+
+switch CONST.METRIC
+    case 0 % if benefit is used as the metric
+        %the total profit of the initialized state.
+        [maxProfit,num_products,TaguchiLoss] = computeTotalProfit(allParts,part1,0,0,CONST);
+        metric = maxProfit;
+    case 1 % if unit is used as the metric
+        [unitCost,num_products,TaguchiLoss] = computeUnitCost(allParts, part1,0, 0, CONST); 
+        %Put a negative here so that we can unify the
+        %comparation to be the larger the better. (larger negative cost means lower positive cost, e.g. -1>-3)
+        metric = -unitCost;
+end
+%[maxProfit,num_products] = currenttotalprofit(allParts,CONST);
+
+data = setData(metric, maxIteration,num_part,num_products,allParts,TaguchiLoss);
 
 
 end

@@ -24,9 +24,19 @@ function [allParts,data] = iterateProcessessigma(allParts, thisPartIndex,CONST,d
             thisPart.processes(i).const.machiningConst = ...
                 tolcostequation(thisPart.processes(i).const,tol);%Make sure to use the right value: sigma or tolerance
             
-            [totalProfit,num_products,TaguchiLoss] = computeTotalProfit(allParts, thisPart,thisPartIndex, i, CONST);            
-            if(totalProfit>=data.max)
-               data.max = totalProfit;
+            switch CONST.METRIC
+                case 0 % if benefit is used as the metric
+                    [totalProfit,num_products,TaguchiLoss] = computeTotalProfit(allParts, thisPart,thisPartIndex, i, CONST); 
+                    metric = totalProfit;
+                case 1 % if unit is used as the metric
+                    [unitCost,num_products,TaguchiLoss] = computeUnitCost(allParts, thisPart,thisPartIndex, i, CONST); 
+                    %Put a negative here so that we can unify the
+                    %comparation to be the larger the better. (larger negative cost means lower positive cost, e.g. -1>-3)
+                    metric = -unitCost;
+            end
+            
+            if(metric>=data.max)
+               data.max = metric;
                data.TaguchiLoss = TaguchiLoss;
                data.num_products = num_products;            
                %thisPart.tol = CONST.KSIGMA*sigma;               

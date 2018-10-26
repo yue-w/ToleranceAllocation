@@ -38,8 +38,7 @@ Case study. Use bigger sigma to compare the result of rework.
         datavec(index) = profit/times;
 %         datavec(index) = data;
 %         partsvec(index,:) = allParts;
-          index = index + 1;
-        
+          index = index + 1;        
     end
     result.R = R;
     result.data = datavec;

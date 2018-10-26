@@ -19,5 +19,6 @@ function part = machinePart(thisPart, thisProcessIndex, sigma,tol, CONST)
     end
 
     part = thisPart;   
+    
     part.dimensions = dimensions;    
 end

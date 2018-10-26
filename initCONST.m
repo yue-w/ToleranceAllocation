@@ -1,4 +1,4 @@
-function CONST = initCONST(BACH,PRICE, DIM, LTOL, UTOL, STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT)
+function CONST = initCONST(BACH,PRICE, DIM, LTOL, UTOL, STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT,METRIC)
 %BACH is the number of parts simulated to be machined
 CONST.BACH = BACH;
 CONST.PRICE = PRICE;
@@ -16,4 +16,6 @@ CONST.METHOD = CONSTMETHOD;
 %Whether reworking parts with dimension larger than US.
 CONST.REWORK = REWORK;
 CONST.INSPECT=INSPECT;
+%Whether to use total benefit or unit cost as the metric.
+CONST.METRIC = METRIC;
 end

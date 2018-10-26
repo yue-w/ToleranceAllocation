@@ -26,7 +26,10 @@ REWORK.V = 0;%set the value.
 
 %Whether inspect each components
 INSPECT = 1;
-CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT);
+%Whether to use benefit or unit cost as the metric. 0 is profit, 1 is unit
+%cost.
+METRIC = 1;
+CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT,METRIC);
 
 %lb, ub are the searching area for the tolerance of processes. Set it to the tolerance
 
