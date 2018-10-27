@@ -2,7 +2,8 @@ function [allParts, CONST,data]=clutchrwrkinit(maxIteration,CONSTMETHOD,METHOD)
 %{
 Case study. Use bigger sigma to compare the result of rework.
 %}
-    A = 0;
+    A = 0; %!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!change
+    METRIC = 1;
     a = [3.5 3.0 2.5 0.5];%The value of a and b are reduntant, because the cost is given.
     b = [0.75 0.65 0.3 0.88];
     if A==0
@@ -28,14 +29,14 @@ Case study. Use bigger sigma to compare the result of rework.
         
         %Average the results of 4 times
         times = 4;
-        profit = 0;
+        metric = 0;
         for j = 1:times
-            [allParts, CONST,data] = clutchrework(sigmavec,maxIteration,reworkR,costVec,a,b,CONSTMETHOD,A);
+            [allParts, CONST,data] = clutchrework(sigmavec,maxIteration,reworkR,costVec,a,b,CONSTMETHOD,A,METRIC);
             [allParts,data] = doValueIteration(allParts, maxIteration,CONST,data,METHOD); 
-            profit = profit + data.max;
+            metric = metric + data.max;
         end
         R(index) = reworkR;
-        datavec(index) = profit/times;
+        datavec(index) = metric/times;
 %         datavec(index) = data;
 %         partsvec(index,:) = allParts;
           index = index + 1;        

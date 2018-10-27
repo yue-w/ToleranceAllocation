@@ -1,4 +1,4 @@
-function [allParts, CONST,data] = clutchrework(sigmavec,maxIteration,reworkR,costVec,a,b,CONSTMETHOD,A)
+function [allParts, CONST,data] = clutchrework(sigmavec,maxIteration,reworkR,costVec,a,b,CONSTMETHOD,A,METRIC)
 num_part = 4;
 %num_processes = 3;
 part1_dim = 55.29;
@@ -28,7 +28,6 @@ REWORK.V = 2;%set the value.
 INSPECT = 1;
 %Whether to use benefit or unit cost as the metric. 0 is profit, 1 is unit
 %cost.
-METRIC = 1;
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT,METRIC);
 
 %Init process index
@@ -93,9 +92,19 @@ allParts(2) = part2;
 allParts(3) = part3;
 allParts(4) = part4;
 
-
+switch METRIC
+    case 0 % if benefit is used as the metric
+        %the total profit of the initialized state.
+        [maxProfit,num_products,TaguchiLoss] = computeTotalProfit(allParts,part1,0,0,CONST);
+        metric = maxProfit;
+    case 1 % if unit is used as the metric
+        [unitCost,num_products,TaguchiLoss] = computeUnitCost(allParts, part1,0, 0, CONST); 
+        %Put a negative here so that we can unify the
+        %comparation to be the larger the better. (larger negative cost means lower positive cost, e.g. -1>-3)
+        metric = -unitCost;
+end
 %the total profit of the initialized state.
-[maxProfit,num_products,TaguchiLoss] = computeTotalProfit(allParts,part1,0,0,CONST);
+%[maxProfit,num_products,TaguchiLoss] = computeTotalProfit(allParts,part1,0,0,CONST);
 
-data = setData(maxProfit, maxIteration,num_part,num_products,allParts,TaguchiLoss);
+data = setData(metric, maxIteration,num_part,num_products,allParts,TaguchiLoss);
 end
