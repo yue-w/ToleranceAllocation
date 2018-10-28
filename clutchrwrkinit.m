@@ -2,51 +2,57 @@ function [allParts, CONST,data]=clutchrwrkinit(maxIteration,CONSTMETHOD,METHOD)
 %{
 Case study. Use bigger sigma to compare the result of rework.
 %}
-    A = 0; %!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!change
-    METRIC = 1;
-    a = [3.5 3.0 2.5 0.5];%The value of a and b are reduntant, because the cost is given.
-    b = [0.75 0.65 0.3 0.88];
-    if A==0
-        sigmavec =[0.083033 0.0916 0.066367 0.098533];
-        costVec = [6.510839 5.365357 4.006781 3.476996];        
-    elseif A==20
-        sigmavec =[0.073733 0.0796 0.050467 0.079033];
-        costVec = [6.890596745 5.721943049 4.481505945 4.211514129];        
-    elseif A==100
-        sigmavec =[0.0461 0.0535 0.039667 0.068533];
-        costVec = [8.615328995 7.049844237 5.021008403 4.780155642];        
-        a = [5.0 3.0 2.5 0.5];%The value of a and b are reduntant, because the cost is given.
-        b = [0.5 0.65 0.3 0.88];        
-    end
-    initR = 0.1; step = 0.05; topR = 1;
-    lengths = (topR-initR)/step+1;
-    
-    lengths = int16(lengths);
-    R(lengths)=0;
-    datavec(lengths) = 0;
-    index = 1;
-    for reworkR = initR:step:topR
-        
-        %Average the results of 4 times
-        times = 4;
-        metric = 0;
-        for j = 1:times
-            [allParts, CONST,data] = clutchrework(sigmavec,maxIteration,reworkR,costVec,a,b,CONSTMETHOD,A,METRIC);
-            [allParts,data] = doValueIteration(allParts, maxIteration,CONST,data,METHOD); 
-            metric = metric + data.max;
+Avec = [0 20 100]; 
+Alength = length(Avec);
+
+    for i = 1:Alength
+        A = Avec(i);
+        METRIC = 1;
+        a = [3.5 3.0 2.5 0.5];%The value of a and b are reduntant, because the cost is given.
+        b = [0.75 0.65 0.3 0.88];
+        if A==0
+            sigmavec =[0.082433 0.100000 0.066367 0.128233];
+            costVec = [6.53275374 5.166666667 4.006780512 2.787496751];        
+        elseif A==20
+            sigmavec =[0.082133 0.086500 0.063667 0.092833];
+            costVec = [6.543831169 5.504816956 4.070680628 3.65978456];        
+        elseif A==100
+            sigmavec =[0.044300 0.051400 0.042667 0.067633];
+            costVec = [8.762227239 7.215304799 4.84375 4.837111878];        
+            a = [5.0 3.0 2.5 0.5];%The value of a and b are reduntant, because the cost is given.
+            b = [0.5 0.65 0.3 0.88];        
         end
-        R(index) = reworkR;
-        datavec(index) = metric/times;
-%         datavec(index) = data;
-%         partsvec(index,:) = allParts;
-          index = index + 1;        
+        initR = 0.1; step = 0.05; topR = 1;
+        lengths = (topR-initR)/step+1;
+
+        lengths = int16(lengths);
+        R(lengths)=0;
+        datavec(lengths) = 0;
+        index = 1;
+        for reworkR = initR:step:topR
+
+            %Average the results of 4 times
+            times = 4;
+            metric = 0;
+            for j = 1:times
+                [allParts, CONST,data] = clutchrework(sigmavec,maxIteration,reworkR,costVec,a,b,CONSTMETHOD,A,METRIC);
+                [allParts,data] = doValueIteration(allParts, maxIteration,CONST,data,METHOD); 
+                metric = metric + data.max;
+            end
+            R(index) = reworkR;
+            datavec(index) = metric/times;
+    %         datavec(index) = data;
+    %         partsvec(index,:) = allParts;
+              index = index + 1;        
+        end
+        result.R = R;
+        result.data = datavec;
+        %result.allParts = partsvec;
+        %Write the result to a file
+        %writetofile(result);
+        writetofilesimple(result,int2str(A));    
     end
-    result.R = R;
-    result.data = datavec;
-    %result.allParts = partsvec;
-    %Write the result to a file
-    %writetofile(result);
-    writetofilesimple(result);
+
 end
 
 function writetofile(result)
@@ -113,7 +119,7 @@ function writetofile(result)
 %}
 end
 
-function writetofilesimple(result)
+function writetofilesimple(result,A)
     num = length(result.R);
     resultVectorRevenueLoss = zeros(1,num); 
     for index=1:num      
@@ -125,7 +131,7 @@ function writetofilesimple(result)
     directory = pwd;%Current directory
     directory = fullfile(directory,'\data');
     %Revenue and Taguchi Loss
-    fileName = 'revenueandloss'; 
+    fileName = strcat('revenueorCost',A); 
     filenameCSV = strcat(fileName,'.csv');
     fileDestCSV  = fullfile(directory,filenameCSV); 
     csvwrite(fileDestCSV,resultVectorRevenueLoss);

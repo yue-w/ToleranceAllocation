@@ -1,5 +1,18 @@
 
+METRIC = 1;
+
+
 reworkcostratio = 0.1:0.05:1;
+
+switch METRIC
+    case 0 %Befefit
+        plotBenefit(reworkcostratio);
+    case 1 %Average Cost
+        plotCost(reworkcostratio);
+end
+
+
+function plotBenefit(reworkcostratio)
 profitA0 = [3.03E+05 3.01E+05 3.00E+05 2.98E+05 2.97E+05 2.96E+05 2.95E+05...
     2.94E+05 2.94E+05 2.93E+05 2.92E+05 2.92E+05 2.91E+05 2.90E+05 2.90E+05 2.89E+05 2.89E+05 2.89E+05 2.88E+05];
 figure
@@ -36,13 +49,60 @@ xLim=[0.1,1];
 xTick = 0.1:0.1:1;
 yLim=[0.8E+05 3.3E+05];
 yTick= min(yLim):(max(yLim)-min(yLim))/10:max(yLim);
-legendX = 5.9;
-legendY = 6.8;
+% legendX = 5.9;
+% legendY = 6.8;
 %legendPosition = [legendX legendY 0.001 0.01];% Define the position and dimensions of the legend
 legendPosition =[3.09591672698842 3.33895834870947 6.66749987935647 1.1641666359144];
 xLabel='\beta';
 yLabel='Profit (USD)';
 setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legends, legendPosition );
+end
+
+function plotCost(reworkcostratio)
+profitA0 = [19.675 19.782 19.864 19.949 20.005 20.058 20.094 20.123 20.156 20.194...
+    20.197 20.212 20.227 20.237 20.247 20.283 20.284 20.291 20.275];
+figure
+nameFig = 'reworkcost';
+plot(reworkcostratio,profitA0,'b-o')
+
+
+hold on
+profitA20=[23.972 24.283 24.497 24.696 24.855 24.982 25.094 25.209 25.286...
+    25.35 25.426 25.486 25.526 25.575 25.614 25.648 25.681 25.73 25.743];
+plot(reworkcostratio,profitA20,'r-o')
+
+hold on
+profitA100=[1.55E+05 1.49E+05 1.44E+05 1.40E+05 1.37E+05 1.33E+05 1.31E+05...
+    1.29E+05 1.27E+05 1.25E+05 1.23E+05 1.21E+05 1.20E+05 1.18E+05 1.18E+05 1.17E+05 1.15E+05 1.15E+05 1.14E+05];
+%plot(reworkcostratio,profitA100,'g-o')
+
+
+%Plot the lines
+hline=refline(0,19.87);% adds a reference line with slope m and intercept b to the current axes.
+hline.Color = 'b';
+hline.LineStyle = '--';
+
+hline=refline(0,25.32);% adds a reference line with slope m and intercept b to the current axes.
+hline.Color = 'r';
+hline.LineStyle = '--';
+
+hline=refline(0,39.21);% adds a reference line with slope m and intercept b to the current axes.
+hline.Color = 'g';
+hline.LineStyle = '--';
+
+legends = {'A=0   (rework)','A=20  (rework)','A=100 (rework)','A=0   (no rework)','A=20  (no rework)','A=100 (no rework)'};
+xLim=[0.1,1];
+xTick = 0.1:0.1:1;
+yLim=[15 45];
+yTick= min(yLim):(max(yLim)-min(yLim))/10:max(yLim);
+% legendX = 5.9;
+% legendY = 6.8;
+%legendPosition = [legendX legendY 0.001 0.01];% Define the position and dimensions of the legend
+legendPosition =[3.09591672698842 3.33895834870947 6.66749987935647 1.1641666359144];
+xLabel='\beta';
+yLabel='Profit (USD)';
+setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legends, legendPosition );
+end
 
 function setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legends, legendPosition )
 %This function is used to adjust the figure
