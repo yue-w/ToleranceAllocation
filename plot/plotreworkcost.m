@@ -59,48 +59,59 @@ setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legends, legendPosit
 end
 
 function plotCost(reworkcostratio)
-profitA0 = [19.675 19.782 19.864 19.949 20.005 20.058 20.094 20.123 20.156 20.194...
-    20.197 20.212 20.227 20.237 20.247 20.283 20.284 20.291 20.275];
+profitA0 = [18.836 18.968 19.071 19.162 19.236 19.32 19.37 19.423...
+    19.489 19.51 19.575 19.593 19.629 19.667 19.686 19.714 19.724 19.764 19.776];
 figure
 nameFig = 'reworkcost';
 plot(reworkcostratio,profitA0,'b-o')
 
 
 hold on
-profitA20=[23.972 24.283 24.497 24.696 24.855 24.982 25.094 25.209 25.286...
-    25.35 25.426 25.486 25.526 25.575 25.614 25.648 25.681 25.73 25.743];
+profitA20=[22.508 22.884 23.198 23.417 23.643 23.821 23.99 24.134 24.269...
+    24.394 24.484 24.608 24.687 24.782 24.864 24.928 24.988 25.08 25.14];
 plot(reworkcostratio,profitA20,'r-o')
 
 hold on
-profitA100=[1.55E+05 1.49E+05 1.44E+05 1.40E+05 1.37E+05 1.33E+05 1.31E+05...
-    1.29E+05 1.27E+05 1.25E+05 1.23E+05 1.21E+05 1.20E+05 1.18E+05 1.18E+05 1.17E+05 1.15E+05 1.15E+05 1.14E+05];
-%plot(reworkcostratio,profitA100,'g-o')
+profitA100=[34.664 35.255 35.729 36.132 36.472 36.753 36.987 37.293 37.417...
+    37.649 37.826 37.975 38.113 38.229 38.312 38.432	38.52 38.66 38.674];
+plot(reworkcostratio,profitA100,'g-o')
 
 
 %Plot the lines
-hline=refline(0,19.87);% adds a reference line with slope m and intercept b to the current axes.
-hline.Color = 'b';
-hline.LineStyle = '--';
+lineWidth = 1.5;
+x = [0 ,1];
+y0 = [19.87 ,19.87];
+pl = line(x,y0,'Color','b','LineStyle','--','LineWidth',lineWidth);
 
-hline=refline(0,25.32);% adds a reference line with slope m and intercept b to the current axes.
-hline.Color = 'r';
-hline.LineStyle = '--';
+y20 = [25.32,25.32];
+pl = line(x,y20,'Color','r','LineStyle','--','LineWidth',lineWidth);
 
-hline=refline(0,39.21);% adds a reference line with slope m and intercept b to the current axes.
-hline.Color = 'g';
-hline.LineStyle = '--';
+y100 = [39.21,39.21];
+pl = line(x,y100,'Color','g','LineStyle','--','LineWidth',lineWidth);
+
+% hline=refline(0,19.87);% adds a reference line with slope m and intercept b to the current axes.
+% hline.Color = 'b';
+% hline.LineStyle = '--';
+
+% hline=refline(0,25.32);% adds a reference line with slope m and intercept b to the current axes.
+% hline.Color = 'r';
+% hline.LineStyle = '--';
+
+% hline=refline(0,39.21);% adds a reference line with slope m and intercept b to the current axes.
+% hline.Color = 'g';
+% hline.LineStyle = '--';
 
 legends = {'A=0   (rework)','A=20  (rework)','A=100 (rework)','A=0   (no rework)','A=20  (no rework)','A=100 (no rework)'};
 xLim=[0.1,1];
 xTick = 0.1:0.1:1;
-yLim=[15 45];
+yLim=[16 41];
 yTick= min(yLim):(max(yLim)-min(yLim))/10:max(yLim);
 % legendX = 5.9;
 % legendY = 6.8;
 %legendPosition = [legendX legendY 0.001 0.01];% Define the position and dimensions of the legend
-legendPosition =[3.09591672698842 3.33895834870947 6.66749987935647 1.1641666359144];
+legendPosition =[3.14883339365509 4.68833334870947 6.66749987935647 1.1641666359144];
 xLabel='\beta';
-yLabel='Profit (USD)';
+yLabel='{\it P}({\itK}) (USD)';
 setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legends, legendPosition );
 end
 

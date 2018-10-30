@@ -1,4 +1,4 @@
-
+linewidth = 1.3;
 %X1
 figure
 tol1 = linspace(0.015, 0.08,30);
@@ -13,10 +13,10 @@ cost1 = a(1) + b(1)./tol(1,:);
 cost2 = a(2) + b(2)./tol(2,:);
 cost3 = a(3) + b(3)./tol(3,:);
 %cost4 = a(4) + b(4)./tol(4,:);
-plt1 = plot(tol1,cost1,'g',tol2,cost2,'b',tol3,cost3,'r');
+plt1 = plot(tol1,cost1,'g',tol2,cost2,'b',tol3,cost3,'r','LineWidth',linewidth);
 legend('process 1','process 2','process 3')
 xlabel('sigma(mm)')
-ylabel('machining cost ($)');
+ylabel('processing cost ($)');
 
 
 %X2
@@ -30,10 +30,10 @@ tol = [tol1; tol2; tol3];
 cost1 = a(1) + b(1)./tol(1,:);
 cost2 = a(2) + b(2)./tol(2,:);
 %cost3 = a(3) + b(3)./tol(3,:);
-plot(tol1,cost1,'g',tol2,cost2,'b');
+plot(tol1,cost1,'g',tol2,cost2,'b','LineWidth',linewidth);
 legend('process 1','process 2')
 xlabel('sigma (mm)')
-ylabel('machining cost ($)');
+ylabel('processing cost ($)');
 
 
 %X3
@@ -47,10 +47,10 @@ b = [0.3 0.045 0.25];
 cost1 = a(1) + b(1)./tol(1,:);
 cost2 = a(2) + b(2)./tol(2,:);
 %cost3 = a(3) + b(3)./tol(3,:);
-plot(tol1,cost1,'g',tol2,cost2,'b');
+plot(tol1,cost1,'g',tol2,cost2,'b','LineWidth',linewidth);
 legend('process 1','process 2')
 xlabel('sigma (mm)')
-ylabel('machining cost ($)');
+ylabel('processing cost ($)');
 
 
 %%X4
@@ -66,10 +66,12 @@ cost1 = a(1) + b(1)./tol(1,:);
 cost2 = a(2) + b(2)./tol(2,:);
 cost3 = a(3) + b(3)./tol(3,:);
 %cost4 = a(4) + b(4)./tol(4,:);
-plot(tol1,cost1,'g',tol2,cost2,'b',tol3,cost3,'r');
+plot(tol1,cost1,'g',tol2,cost2,'b',tol3,cost3,'r','LineWidth',linewidth);
 legend('process 1','process 2','process 3')
 xlabel('sigma (mm)')
-ylabel('machining cost ($)');
+ylabel('processing cost ($)');
+
+print('-dtiff','-r300','sigmacost');
 
 % %Common Legend
 % hL = subplot(3,2,5.5);
