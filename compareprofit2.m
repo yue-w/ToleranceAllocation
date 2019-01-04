@@ -44,6 +44,16 @@ INSPECT = 1;
 METRIC = 1;
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT,METRIC);
 
+SCRAP.FLAG = 1;
+if  SCRAP.FLAG == 0
+    SCRAP.RATIO = 0;
+    SCRAP.PSC = 0;%CSP is product scrap cost
+else
+    SCRAP.RATIO = 0.1;
+    SCRAP.PSC = 1.5;
+end
+CONST.SCRAP = SCRAP;
+
 init_processIndex1 = 3;
 init_processIndex2 = 2;
 init_processIndex3 = 1;
@@ -141,7 +151,6 @@ allParts(4) = part4;
 init_tol = [tol1 tol2 tol3 tol4];
 allParts = inittolcost(allParts,init_tol,init_processIndex);
 allParts = initreworkcost(allParts,init_processIndex,reworkcostvec);
-%the total profit of the initialized state.
 
 switch CONST.METRIC
     case 0 % if benefit is used as the metric

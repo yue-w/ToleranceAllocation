@@ -16,7 +16,7 @@ LLIM =0.087 ;% 0.122-0.035 (rad)
 ULIM =0.157 ;% = 0.122+0.035 (rad)
 
 PRICE = 50;
-A = 0;
+A = 100;
 TAGUCH_K = A/(0.035^2);
 STEP = 0.015/50;
 
@@ -32,6 +32,17 @@ INSPECT = 1;
 %Whether to use benefit or unit cost as the metric. 0 is profit, 1 is unit cost.
 METRIC = 1;
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT,METRIC);
+
+%Whether to consider Scrap Cost
+SCRAP.FLAG = 1;
+if  SCRAP.FLAG == 0
+    SCRAP.RATIO = 0;
+    SCRAP.PSC = 0;%CSP is product scrap cost
+else
+    SCRAP.RATIO = 0.1;
+    SCRAP.PSC = 1.5;
+end
+CONST.SCRAP = SCRAP;
 
 %Init process index
 init_processIndex1 = 1;
@@ -90,6 +101,7 @@ allParts(1) = part1;
 allParts(2) = part2;
 allParts(3) = part3;
 allParts(4) = part4;
+
 
 init_tol = [tol1 tol2 tol3 tol4];
 init_processIndexvec = [init_processIndex1 init_processIndex2 init_processIndex3 init_processIndex4];

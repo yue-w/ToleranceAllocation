@@ -18,6 +18,8 @@ function part = init_one_Part(processes, tol, dimension, processIndex)
     %scalFactor = 1.1;%used in the begining of the iteration, assume the number of the parts
     part.machinedNum =0 ;% CONST.BACH * scalFactor;
     part.reworkNum = 0; 
+    %number of unsatisfactory part, which will be scrapped
+    part.scrapNum = 0;
     %Simulated dimensions of a bach of this parts machined by thisProcess  
     part.dimensions = 0;
     

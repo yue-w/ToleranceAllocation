@@ -33,6 +33,15 @@ INSPECT = 1;
 METRIC = 1;
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT,METRIC);
 
+%Whether to consider Scrap Cost
+SCRAP.FLAG = 0;
+if  SCRAP.FLAG == 0
+    SCRAP.RATIO = 0;
+else
+    SCRAP.RATIO = 0.1;
+end
+CONST.SCRAP = SCRAP;
+
 %Init process index
 init_processIndex1 = 1;
 init_processIndex2 = 1;

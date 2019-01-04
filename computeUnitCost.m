@@ -1,4 +1,4 @@
-function [unitCost,num_products,taguchiLost] = computeUnitCost(allParts, thisPart, thisPartIndex, thisProcessIndex,CONST)
+function [unitCost,num_products,taguchiLost] = computeUnitCost(allParts, thisPart, thisPartIndex,thisProcessIndex,CONST)
 %{
 This function compute the unit cost of each product of current tollerance allocation
 strategy. Different cost-tollerance models can be used by using different
@@ -18,10 +18,18 @@ CONST - some constant used in computation
     num_products = length(products);   
     
     machiningCost = computeMachiningCost(allParts,thisPart, thisPartIndex,thisProcessIndex,CONST);
-    %Taguchi lost
+    
+    
+    %Scrap Cost of components
+    componentScrapCost = computeComponentScrapCost(allParts,thisPart, thisPartIndex,thisProcessIndex,CONST);
+    
+    %Scrap cost of Products
+    productScrapCOst = (CONST.BACH - num_products) * CONST.SCRAP.PSC;
+    
+    %Taguchi lost    
     taguchiLost = computeTaguchiLost(productDims, CONST); 
     
-    totalCost = machiningCost + taguchiLost;
+    totalCost = machiningCost + taguchiLost + componentScrapCost + productScrapCOst;
     
     unitCost = totalCost/num_products;
 

@@ -16,25 +16,26 @@ STEP = TOL / 100;
 
 PRICE = 50;
 
-A = 0;
+A = 100;
 TAGUCH_K = A/(0.035^2);
 
 
-    if A == 0
-        sigma1 = 0.083333333;
-        sigma2 = 0.0991;
-        sigma3 = 0.065166667;
-        sigma4 = 0.131533333;   
-    elseif A==20
-        sigma1 = 0.082733333;
-        sigma2 = 0.0799;
-        sigma3 = 0.052866667;
-        sigma4 = 0.091033333;           
+    if A == 0    
+        sigma1 = 0.083033333;
+        sigma2 = 0.0964;
+        sigma3 = 0.063966667;
+        sigma4 = 0.128533333;   
+    elseif A==20    
+        sigma1 = 0.083033333;
+        sigma2 = 0.0781;
+        sigma3 = 0.056166667;
+        sigma4 = 0.089533333;   
+
     elseif A==100
-        sigma1 = 0.0461;
-        sigma2 = 0.0535;
-        sigma3 = 0.039667;
-        sigma4 = 0.068533;   
+        sigma1 = 0.0497;
+        sigma2 = 0.0499;
+        sigma3 = 0.043866667;
+        sigma4 = 0.067333333;   
     end
     
 %%For A=100
@@ -56,6 +57,16 @@ INSPECT = 1;
 %cost.
 METRIC = 1;
 CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWORK,INSPECT,METRIC);
+
+SCRAP.FLAG = 1;
+if  SCRAP.FLAG == 0
+    SCRAP.RATIO = 0;
+    SCRAP.PSC = 0;%CSP is product scrap cost
+else
+    SCRAP.RATIO = 0.1;
+    SCRAP.PSC = 1.5;
+end
+CONST.SCRAP = SCRAP;
 
 reworkcostR = 0.3;
 %lb, ub are the searching area for the tolerance of processes. Set it to the tolerance

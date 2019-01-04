@@ -78,7 +78,7 @@ plot(reworkcostratio,profitA100,'g-o')
 
 
 %Plot the lines
-lineWidth = 1.5;
+lineWidth = 1;
 x = [0 ,1];
 y0 = [19.87 ,19.87];
 pl = line(x,y0,'Color','b','LineStyle','--','LineWidth',lineWidth);
@@ -117,8 +117,8 @@ end
 
 function setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legends, legendPosition )
 %This function is used to adjust the figure
-    axis_font_size =10;
-    legend_font_size=8;
+    axis_font_size =7;%For CIRP the font is 8. The original font size is 10 
+    legend_font_size=7;
     figure_linewidth = 1;
     legend_linewidth=0.5;
     %mark_size=15;
