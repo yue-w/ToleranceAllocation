@@ -42,6 +42,7 @@ function [allParts,data] = iterateProcessessigma(allParts, thisPartIndex,CONST,d
                %thisPart.tol = CONST.KSIGMA*sigma;               
                thisPart.processIndex = i;
                thisPart.processes(i).Sdev=sigma;
+               thisPart.tol = CONST.KSIGMA*sigma;
                allParts(thisPartIndex) = thisPart;
             end
             sigma = sigma - CONST.STEP;

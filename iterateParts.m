@@ -23,6 +23,10 @@ iterate through all possible processes.
                 [allPartsCopy,data] = iterateProcessessigma(allPartsCopy, i ,CONST,data);
             case CONST.METHOD.CLUTCHRWRK
                 [allPartsCopy,data] = iterateProcessesbound(allPartsCopy, i ,CONST,data);
+            case CONST.METHOD.CLUTCHRATESIGMA
+                [allPartsCopy,data] = iterateProcessessigma(allPartsCopy, i ,CONST,data);
+            case CONST.METHOD.CLUTCHRATEK
+                [allPartsCopy,data] = iterateProcessesbound(allPartsCopy, i ,CONST,data);
         end       
         data.max_pt(num_parts*(index-1)+i+1) = data.max;
         

@@ -11,6 +11,7 @@ function productDim = currentassemble(allParts,CONST)
     
     %productDim = sum(partDims,1);
     
-    tem = (partDims(2,:)+partDims(3,:))/2;
-    productDim = acos((partDims(1,:)+tem)./(partDims(4,:)-tem));
+%     tem = (partDims(2,:)+partDims(3,:))/2;
+%     productDim = acos((partDims(1,:)+tem)./(partDims(4,:)-tem));
+    productDim = assemblefunction(partDims);
 end
