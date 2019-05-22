@@ -18,7 +18,7 @@ PRICE = 50;
 A = 0;
 TAGUCH_K = A/(0.035^2);
     if A == 0    
-        sigma1 = 0.093333;
+        sigma1 = 0.043333;
         
         sigma2 = 0.09;
         sigma3 = 0.11;
@@ -56,11 +56,11 @@ CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWO
 
 SCRAP.FLAG = 1;
 if  SCRAP.FLAG == 0
-    SCRAP.RATIO = 0;
-    SCRAP.PSC = 1.7;%CSP is product scrap cost
+    SCRAP.RATIO = 0;%the ratio of scrap cost to Ai for the ith component
+    SCRAP.PSC = 0;%CSP is product scrap cost
 else
-    SCRAP.RATIO = 0.1;
-    SCRAP.PSC = 1.7;
+    SCRAP.RATIO = 0.1;%the ratio of scrap cost to Ai for the ith component
+    SCRAP.PSC = 0.612;%CSP is product scrap cost
 end
 CONST.SCRAP = SCRAP;
 
@@ -82,8 +82,8 @@ limitRatio = 8;
 %Part 1
 %If A = 100, the process for the first part is 2, other wise, it is 3
 if A~=100
-    CST.a = 5.0;
-    CST.b = 20; 
+    CST.a = 0.87; %5.0;
+    CST.b = 2.062; %20;
     CST.c = 0;
     CST.d = 0.001798/3;
 else
@@ -100,8 +100,8 @@ part1_process = setprocesses(lb, ub, CST.a, CST.b, c, d,machiningConst1,reworkin
 part1 = init_one_Part(part1_process, tol1, part1_dim, init_processIndex);
 
 %Part 2
-CST.a = 3.0;
-CST.b = 36.7;
+CST.a = 1.71; %3.0;
+CST.b = 1.276; %36.7;
 CST.c = 0;
 CST.d = 0.001653/3;
 Sdev_pt2 =sigma2;
@@ -114,8 +114,8 @@ part2_process = setprocesses(lb, ub, CST.a, CST.b, c, d,machiningConst2,reworkin
 part2 = init_one_Part(part2_process, tol2, part2_dim, init_processIndex);
 
 %Part 3
-CST.a = 1.0;
-CST.b = 36;
+CST.a = 3.54; %1.0;
+CST.b = 1.965; % 36.0;
 CST.c = 0;
 CST.d = 0.002/3;
 Sdev_pt3 =sigma3;

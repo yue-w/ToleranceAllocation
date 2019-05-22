@@ -3,10 +3,9 @@ function comparecost(CONSTMETHOD)
 Compare the results of this method to the rate-sigma-cost method.
 %}
 num_part = 3;
-%optsigma = [0.0766049, 0.05531908, 0.09958041];
-optk = [5.38997, 1.99555, 2.28545];
-optsigma = [0.09333, 0.09, 0.11];
-%optk = [6.12497, 1.66111, 3.4181818];
+
+optsigma = [0.07833093, 0.03662102, 0.07896588];
+optk = [6.257453284,6.298622314,6.254898151];
 %optk = [3, 3, 3];
 %num_processes = 3;
 part1_dim = 55.291;
@@ -40,11 +39,11 @@ CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,0,CONSTMETHOD,REWORK,IN
 %Whether to consider Scrap Cost
 SCRAP.FLAG = 1;
 if  SCRAP.FLAG == 0
-    SCRAP.RATIO = 0;
+    SCRAP.RATIO = 0;%the ratio of scrap cost to Ai for the ith component
     SCRAP.PSC = 0;%CSP is product scrap cost
 else
-    SCRAP.RATIO = 0.1;
-    SCRAP.PSC = 1.7;
+    SCRAP.RATIO = 0.1;%the ratio of scrap cost to Ai for the ith component
+    SCRAP.PSC = 0.612;%CSP is product scrap cost
 end
 CONST.SCRAP = SCRAP;
 
@@ -60,8 +59,8 @@ reworkcostvec = reworkR*[0 0 0];
 
 
 %Part 1
-a = 5.0;
-b = 20;
+a = 0.87; %5.0;
+b = 2.062; %20;
 e = 0;
 f = 0.001798/3;
 
@@ -70,8 +69,8 @@ tol1 = optk(1) * init_sigma1;%The tolerance is a constant times sigma
 part1 = partrate(a,b,e,f,part1_dim,[0,0],init_sigma1,tol1,init_processIndex1);
 
 %Part 2
-a = 3.0;
-b = 36.7;
+a = 1.71; %3.0;
+b = 1.276; %36.7;
 e = 0;
 f = 0.001653/3;
 
@@ -80,8 +79,8 @@ tol2 = optk(2) * init_sigma2;
 part2 = partrate(a,b,e,f,part2_dim,[0,0],init_sigma2,tol2,init_processIndex2);
 
 %Part 3
-a = 1.0;
-b = 36.0;
+a = 3.54; %1.0;
+b = 1.965; % 36.0;
 e = 0;
 f = 0.002/3;
 

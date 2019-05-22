@@ -35,11 +35,11 @@ CONST = initCONST(BACH,PRICE,DIM,LLIM,ULIM,STEP,TAGUCH_K,KSIGMA,CONSTMETHOD,REWO
 %Whether to consider Scrap Cost
 SCRAP.FLAG = 0;
 if  SCRAP.FLAG == 0
-    SCRAP.RATIO = 0;
-    SCRAP.PSC = 1.7;%CSP is product scrap cost
+    SCRAP.RATIO = 0;%the ratio of scrap cost to Ai for the ith component
+    SCRAP.PSC = 0;%CSP is product scrap cost
 else
-    SCRAP.RATIO = 0.1;
-    SCRAP.PSC = 1.7;
+    SCRAP.RATIO = 0.1;%the ratio of scrap cost to Ai for the ith component
+    SCRAP.PSC = 0.612;%CSP is product scrap cost
 end
 CONST.SCRAP = SCRAP;
 
@@ -54,8 +54,8 @@ reworkR = 0.3;
 reworkcostvec = reworkR*[0 0 0];
 
 %Part 1
-a = 5.0;
-b = 20;
+a = 0.87; %5.0;
+b = 2.062; %20;
 e = 0;
 f = 0.001798/3;
 Sdev_pt1 = [0.1 0.4]/3;
@@ -64,8 +64,8 @@ tol1 = KSIGMA * init_sigma1;%The tolerance is a constant times sigma
 part1 = partrate(a,b,e,f,part1_dim,Sdev_pt1,init_sigma1,tol1,init_processIndex1);
 
 %Part 2
-a = 3.0;
-b = 36.7;
+a = 1.71; %3.0;
+b = 1.276; %36.7;
 e = 0;
 f = 0.001653/3;
 Sdev_pt2 = [0.08 0.3];
@@ -74,8 +74,8 @@ tol2 = KSIGMA * init_sigma2;
 part2 = partrate(a,b,e,f,part2_dim,Sdev_pt2,init_sigma2,tol2,init_processIndex2);
 
 %Part 3
-a = 1.0;
-b = 36.0;
+a = 3.54; %1.0;
+b = 1.965; % 36.0;
 e = 0;
 f = 0.002/3;
 Sdev_pt3 = [0.1 0.5];

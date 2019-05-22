@@ -19,5 +19,6 @@ function TotalScrapCost = computeComponentScrapCost(allParts,thisPart, thisPartI
             scrapCost = part.processes(processindex).const.a * CONST.SCRAP.RATIO * part.scrapNum; 
 
             TotalScrapCost = TotalScrapCost + scrapCost; 
+            
     end    
 end
